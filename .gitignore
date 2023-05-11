@@ -1,0 +1,13 @@
+# Arquivos de configuração local
+config.ini
+database_credentials.txt
+
+# Arquivos de log
+*.log
+
+# Diretórios de dependências
+venv/
+node_modules/
+
+# Credenciais de Ambiente
+.env
