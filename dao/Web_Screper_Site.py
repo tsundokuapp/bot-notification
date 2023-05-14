@@ -1,6 +1,7 @@
 from model.Capitulo import Capitulo
 from model.Obra import Obra
 from model.Mensagens import Mensagens
+from classes_io.Gestor_TXT import Gestor_TXT
 
 from datetime import datetime, timedelta
 import requests
@@ -50,11 +51,7 @@ class Web_Screper_Site:
 
         lista_de_capitulos = []
 
-        datas = []
-        for i in range(7):
-            data = datetime.now().date() - timedelta(days=i)
-            data = data.strftime("%B %-d, %Y")
-            datas.append(data)
+        datas = self.receber_datas()
 
         for li in dados_postagem.find_all("li"):
             chapterdate = li.find("span", class_="chapterdate").text
@@ -66,6 +63,28 @@ class Web_Screper_Site:
                 lista_de_capitulos.append(capitulo) # Adiciona a lista à matriz
 
         return lista_de_capitulos
+
+
+    def receber_datas(self):
+        gestor_TXT = Gestor_TXT()
+        data_anterior = gestor_TXT.get_data_anterior()
+
+        data_atual = datetime.now()
+
+        max_dias = 7
+
+        diferenca_dias = data_atual.toordinal() - data_anterior.toordinal()
+
+        dias_permitidos = min(diferenca_dias, max_dias)
+
+        datas = []
+        datas.append(data_atual.strftime("%B %-d, %Y"))  # Adiciona a data atual
+
+        for i in range(1, dias_permitidos + 1):  # Começa a partir de 1 para incluir o dia atual
+            data = data_atual - timedelta(days=i)
+            datas.append(data.strftime("%B %-d, %Y"))
+
+        return datas
 
 
     def receber_conteudo(self, numero_partir_ultimo_capitulo_postado):

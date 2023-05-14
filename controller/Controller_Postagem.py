@@ -5,6 +5,7 @@ from controller.Controller_IO import Controller_IO
 from model.posts.Post_Discord import Post_Discord
 from model.Mensagens import Mensagens
 
+import time
 
 class Controller_Postagem:
 
@@ -58,8 +59,10 @@ class Controller_Postagem:
                 Mensagens.post_discord()
                 post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                 Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
-
+                
                 #Aqui vai a parte do facebook
+
+                time.sleep(300)
                 
         for obra in lista_de_obras_atualizada:
             for obra_contida in lista_de_obras_contidas_no_registro:

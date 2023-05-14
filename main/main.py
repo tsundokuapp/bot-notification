@@ -24,7 +24,7 @@ while True:
         diferenca_dias = data_atual.toordinal() - data_anterior.toordinal()
         print("Tempo desde a última exclusão: " , diferenca_dias, " dias\n")
 
-    if diferenca_dias >= 10 or diferenca_dias <= -10:
+    if diferenca_dias >= 30 or diferenca_dias <= -30:
         Mensagens.mensagem_excluindo_relatorios_capitulos()
         gestor_TXT.deleta_registro_capitulos(pasta_relatorios_capitulos)
 
@@ -36,4 +36,4 @@ while True:
 
     #validar_atualizacao_obras()
     Mensagens.proxima_verificacao_capitulos()
-    time.sleep(1800)
+    time.sleep(5000)
