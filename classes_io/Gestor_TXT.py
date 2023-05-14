@@ -5,7 +5,7 @@ class Gestor_TXT:
 
     def __init__(self):
         print("Construindo objeto ... {}".format(self))
-        self.pasta_registro_horario = "/home/ginfo/_dev/bot-tsun/gestor_postagem_tsun/classes_io/registro_horario"
+        self.pasta_registro_horario = os.path.join(os.path.dirname(__file__), 'registro_horario/')
         self.caminho_arquivo_data = os.path.join(self.pasta_registro_horario, 'data_anterior.txt')
 
     
@@ -13,11 +13,13 @@ class Gestor_TXT:
         if os.path.isfile(self.caminho_arquivo_data):
             with open(self.caminho_arquivo_data, 'r') as f:
                  data_anterior = f.read().strip()
+                 print("Data anterior recebida.")
                  return datetime.strptime(data_anterior, "%Y-%m-%d").date()
 
     
     def atualiza_data_anterior(self, data_anterior):
         with open(self.caminho_arquivo_data, 'w') as f:
+            print("Data anterior atualizada.")
             f.write(str(data_anterior))
 
     

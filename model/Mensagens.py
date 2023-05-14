@@ -25,6 +25,12 @@ class Mensagens:
         print("*****************************************\n")
 
     
+    def recebendo_capitulos_mensagem():
+        print("*****************************************")
+        print("  Recebendo Capitulos dos ultimos dias.  ")
+        print("*****************************************\n")
+
+    
     def proxima_verificacao_capitulos():
         now = datetime.now()
         print("A próxima verificação dos capítulos será {}:{}!".format(now.hour, now.minute))

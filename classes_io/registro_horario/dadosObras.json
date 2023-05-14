@@ -1,0 +1,102 @@
+{
+    "Jirai Nandesuka? Chihara-san":{
+        "cargo_discord": "Jirai nandesuka? Chihara-san",
+        "url_imagem": "http://tsundoku.com.br/wp-content/uploads/2022/01/Banner_Chihara_Tsun.png",
+        "cor": "0xFFFFFF"
+    },
+    "Gosu":{
+        "cargo_discord": "Gosu",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/02/Gosu_The_Master1.png",
+        "cor": "0xFFFFFF"
+    },
+    "Como um Herói Realista Reconstruiu o Reino":{
+        "cargo_discord": "Herói Realista",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/01/Social_Post_Heroi_Realista_00.jpg",
+        "cor": "0x8B0000"
+    },
+    "Matador de Goblins":{
+        "cargo_discord": "Matador de Goblins",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2021/05/Tsundoku_Traducoes_Goblin_Slayer_Gif_01.gif",
+        "cor": "0xFF0000"
+    },
+    "Mushoku Tensei: Reencarnação do Desempregado":{
+        "cargo_discord": "Mushoku Tensei",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/01/Social_Post_Mushoku_Tensei_00.jpg",
+        "cor": "0xF5F5DC"
+    },
+    "Otomege: O Mundo dos Otome Games é Cruel Para Mobs":{
+        "cargo_discord": "Otomege: O Mundo dos Otome Games é Cruel Para Mobs",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/01/Otome_V2_Capa.png",
+        "cor": "0xFF0000"
+    },
+    "Kage no Jitsuryokusha ni Naritakute":{
+        "cargo_discord": "Kage no Jitsuryokusha ni Naritakute",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/08/Social_Post_Shadow_00.jpg",
+        "cor": "0x4923A6"
+    },
+    "A Eminência nas Sombras":{
+        "cargo_discord": "A Eminência nas Sombras",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/01/Social_Post_Eminencia_Nas_Sombras_00.jpg",
+        "cor": "0x4923A6"
+    },
+    "Império Tearmoon":{
+        "cargo_discord": "Império Tearmoon",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/07/Tear_V1_Capa-01.jpg",
+        "cor": "0xEBE3B1"
+    },
+    "Bruxa Errante, a Jornada de Elaina":{
+        "cargo_discord": "Bruxa Errante, a Jornada de Elaina",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/04/Social_Post_BruxaErrante_00.jpg",
+        "cor": "0xF5C8C9"
+    },
+    "Crônicas do Bahamut Invicto":{
+        "cargo_discord": "Crônicas do Bahamut Invicto",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/09/Banner_-_Bahamut_Light_Novel_Portugues___.png",
+        "cor": "0xFF4500"
+    },
+    "Rinna Keibu wa Iki ga dekinai":{
+        "cargo_discord": "Rinna Keibu wa Iki ga dekinai",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/02/unknown.png",
+        "cor": "0xFF69B4"
+    },
+    "Tearmoon Teikoku Monogatari":{
+        "cargo_discord": "Tearmoon Teikoku Monogatari",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/01/Social_Post_Tearmoon_Monogatari_00.jpg",
+        "cor": "0xEBE3B1"
+    },
+    "Marcha Mortal à Rapsódia do Mundo Paralelo":{
+        "cargo_discord": "Marcha Mortal",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/03/Social_Post_Marcha_Mortal_00.jpg",
+        "cor": "0x4169E1"
+    },
+    "Rei Demônio ao Trabalho":{
+        "cargo_discord": "Hataraku Maou-sama",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/01/Social_Post_Rei_Demonio_Ao_Trabalho_00.jpg",
+        "cor": "0xF7FF0C"
+    },
+    "Trono do Arcanista":{
+        "cargo_discord": "Trono do Arcanista",
+        "url_imagem": "https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/TA-Capa-vO.png",
+        "cor": "0x585858"
+    },
+    "Liberte Aquela Bruxa":{
+        "cargo_discord": "Liberte Aquela Bruxa",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/04/Banner_Zero_LAB.png",
+        "cor": "0xFF00FA"
+    },
+    "Ranger Noturno":{
+        "cargo_discord": "Ranger Noturno",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2022/08/Ranger-Noturno-Editado.png",
+        "cor": "0x4A90E2"
+    },
+    "Lorde dos Mistérios":{
+        "cargo_discord": "Lorde dos Mistérios",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/04/CAPA-LDM.jpg",
+        "cor": "0x8A4B08"
+    },
+    "Super Minion":{
+        "cargo_discord":"Super Minion",
+        "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/05/SuperMinion.png",
+        "cor":"0xFFFFFF"
+    }
+}
