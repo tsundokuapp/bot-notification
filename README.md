@@ -15,3 +15,7 @@ source venv/bin/activate
 
 #Para instalar as dependências:
 pip install -r requirements.txt
+
+#Por fim, para executar:
+python main/main.py
+
