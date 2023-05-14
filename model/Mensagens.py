@@ -105,10 +105,7 @@ class Mensagens:
 
     def post_facebook():
         time.sleep(5)
-        print("*******************************************************")
         print("            Fazendo anúncio no Facebook...             ")
-        print("*******************************************************\n")
-
         mensagem_log = "**Fazendo anúncio no Facebook...**"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 

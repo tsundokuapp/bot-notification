@@ -3,6 +3,8 @@ from dao.Conexao_Discord import Conexao_Discord
 from classes_io.Gestor_JSON import Gestor_JSON
 from controller.Controller_IO import Controller_IO
 from model.posts.Post_Discord import Post_Discord
+from model.posts.Post_Facebook import Post_Facebook
+
 from model.Mensagens import Mensagens
 
 import time
@@ -43,12 +45,13 @@ class Controller_Postagem:
 
             Mensagens.post_discord()
             for obra in lista_de_obras_atualizada:
-                
-                
                 post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                 Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
 
                 #Aqui vai a parte do facebook
+                #Mensagens.post_facebook()
+                #post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
      
         #Envia os dados para post
         else:
