@@ -14,7 +14,7 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 class Web_Screper_Site:
 
     def __init__(self):
-        print("Iniciando web screper")
+        print(" ")
 
 
     def recebe_capitulos_diarios(self):

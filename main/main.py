@@ -32,8 +32,6 @@ while True:
         gestor_TXT.atualiza_data_anterior(data_anterior)
 
     # executar ação a cada 15 minutos
-    Mensagens.inicializando_verificacao_postagem()
-    
     Controller_Postagem.execucao_principal()
 
     #validar_atualizacao_obras()
