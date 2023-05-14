@@ -16,7 +16,10 @@ class Obra:
         return f"Titulo: {self.titulo_obra}, Link Imagem: {self.imagem_obra}, Link Obra: {self.url_obra} \n"
 
 
-    
+    def __repr__(self):
+        return f"Titulo: {self.titulo_obra}"
+
+
     def adicionar_capitulo(self, numero_capitulo, link_capitulo, data_postagem):
         capitulo = capitulo(numero_capitulo, link_capitulo, data_postagem)
         self.lista_de_capitulos.append(capitulo)

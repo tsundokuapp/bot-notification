@@ -39,7 +39,6 @@ class Web_Screper_Site:
                 obra.receber_lista_de_capitulos(lista_de_capitulos)
                 lista_de_obras.append(obra)
 
-        print(lista_de_obras)
         return lista_de_obras
 
  

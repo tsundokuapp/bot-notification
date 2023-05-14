@@ -33,5 +33,5 @@ class Mensagens:
     
     def proxima_verificacao_capitulos():
         now = datetime.now()
-        print("A próxima verificação dos capítulos será {}:{}!".format(now.hour, now.minute))
+        print("\nA próxima verificação dos capítulos será {}:{}!\n".format(now.hour, now.minute))
         print("*********************************************************\n")

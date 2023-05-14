@@ -1,0 +1,26 @@
+[
+    {
+        "titulo_obra": "Mushoku Tensei: Reencarna\u00e7\u00e3o do Desempregado",
+        "imagem_obra": "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg",
+        "url_obra": "https://tsundoku.com.br/manga/mushoku-tensei-reencarnacao-do-desempregado/",
+        "lista_de_capitulos": [
+            {
+                "numero_capitulo": " Vol. 18 \u2013 Cap. 04",
+                "link_capitulo": "https://tsundoku.com.br/mushoku-tensei-reencarnacao-do-desempregado-vol-18-cap-04-progresso-da-pesquisa/",
+                "data_postagem": "maio 8, 2023"
+            }
+        ]
+    },
+    {
+        "titulo_obra": "Gosu",
+        "imagem_obra": "https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/02/Gosu_The_Master1.png",
+        "url_obra": "https://tsundoku.com.br/manga/gosu/",
+        "lista_de_capitulos": [
+            {
+                "numero_capitulo": " Cap. 187",
+                "link_capitulo": "https://tsundoku.com.br/gosu-cap-187/",
+                "data_postagem": "maio 8, 2023"
+            }
+        ]
+    }
+]

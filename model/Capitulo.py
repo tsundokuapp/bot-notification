@@ -12,6 +12,9 @@ class Capitulo:
         return f"Numero Capitulo: {self.numero_capitulo}, Link Capitulo: {self.link_capitulo}, Data Postagem: {self.data_postagem}\n"
 
 
+    def __repr__(self):
+        return f"Numero Capitulo: {self.numero_capitulo}"
+
 
     def printCapitulo(self):
         print("Numero: ",self.numero_capitulo," Link: ", self.link_capitulo, " Data Postagem: ", self.data_postagem)
