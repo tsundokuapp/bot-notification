@@ -12,7 +12,7 @@ class Controller_Postagem:
     def execucao_principal():
         def valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro):
             print("\n*******************************************************")
-            print(f"Lista de obras para verificar: {lista_de_obras}\n")
+            Mensagens.mensagem_lista_de_obras_para_verificar(lista_de_obras)
 
             for obra_atual in lista_de_obras:
                 for obra_contida_no_registro in lista_de_obras_contidas_no_registro:
@@ -25,9 +25,8 @@ class Controller_Postagem:
 
             lista_de_obras = [obra for obra in lista_de_obras if obra.lista_de_capitulos]
 
-            print(f"Lista de obras para fazer anúncio: {lista_de_obras}")
+            Mensagens.mensagem_lista_de_obras_para_fazer_anuncio(lista_de_obras)
             print("*******************************************************\n")
-
 
             return lista_de_obras
         
@@ -42,9 +41,10 @@ class Controller_Postagem:
             lista_de_obras_atualizada = valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro)
             Mensagens.conclusao_verificacao_postagem()
 
+            Mensagens.post_discord()
             for obra in lista_de_obras_atualizada:
                 
-                Mensagens.post_discord()
+                
                 post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                 Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
 
@@ -55,6 +55,7 @@ class Controller_Postagem:
             print("Nenhum registro encontrado, pulado para o anúncio!")
             Mensagens.conclusao_verificacao_postagem()
 
+            Mensagens.post_discord()
             for obra in lista_de_obras:
                 Mensagens.post_discord()
                 post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())

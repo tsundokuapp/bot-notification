@@ -22,7 +22,7 @@ while True:
     Mensagens.inicializando_validacao_arquivos_antigos()
     if data_anterior:
         diferenca_dias = data_atual.toordinal() - data_anterior.toordinal()
-        print("Tempo desde a última exclusão: " , diferenca_dias, " dias\n")
+        Mensagens.mensagem_tempo_desde_exclusao(diferenca_dias)
 
     if diferenca_dias >= 30 or diferenca_dias <= -30:
         Mensagens.mensagem_excluindo_relatorios_capitulos()
@@ -36,4 +36,4 @@ while True:
 
     #validar_atualizacao_obras()
     Mensagens.proxima_verificacao_capitulos()
-    time.sleep(5000)
+    time.sleep(18000)

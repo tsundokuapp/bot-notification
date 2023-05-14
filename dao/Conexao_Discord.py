@@ -1,3 +1,5 @@
+from model.Mensagens import Mensagens
+
 from dotenv import load_dotenv
 import discord
 import os
@@ -5,6 +7,8 @@ import os
 class Conexao_Discord:
 
     def postar_anuncio_discord(post_obra):
+        Mensagens.mensagen_realizando_post_obra(post_obra.nome_no_anuncio)
+
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -40,4 +44,23 @@ class Conexao_Discord:
 
             await client.close()
         print("Post no Discord realizado!")
+        client.run(token)
+
+
+    def mensagem_de_log_discord(mensagem_log):
+        intents = discord.Intents.default()
+        client = discord.Client(intents=intents)
+
+        # Carregando as variaveis de ambiente
+        load_dotenv()
+        token = os.getenv('API_KEY')
+        canal = int(os.getenv('CANAL_TESTES'))
+
+        @client.event
+        async def on_ready():
+            channel = client.get_channel(canal)
+
+            await channel.send(mensagem_log)  # Envia a mensagem sem um embed
+            await client.close()
+
         client.run(token)

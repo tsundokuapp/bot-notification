@@ -35,7 +35,7 @@ class Web_Screper_Site:
             lista_de_capitulos = self.receber_capitulos_diarios_obras(url_obra)
 
             if len(lista_de_capitulos) == 0:
-                print(f"Nenhum post de {titulo_obra}. \n")
+                Mensagens.mensagem_nenhum_post_obra(titulo_obra)
             else:
                 obra.receber_lista_de_capitulos(lista_de_capitulos)
                 lista_de_obras.append(obra)
