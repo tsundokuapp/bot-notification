@@ -78,6 +78,39 @@ class Mensagens:
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
     
+    def atualizando_diretorio_imagens():
+        time.sleep(5)
+        print("*******************************************************")
+        print("      Atualizando Diretorio de Imagens...     ")
+        print("*******************************************************\n")
+
+        mensagem_log = "**Atualizando Diretorio de Imagens...**"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    def nao_foi_possivel_postar_discord():
+        time.sleep(5)
+        print("*******************************************************")
+        print("      Não foi possível fazer o post no Discord...      ")
+        print("*******************************************************\n")
+
+        mensagem_log = "Não foi possível fazer o post no Discord... Tentaremos novamente mais tarde"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    def nao_foi_possivel_postar_facebook():
+        time.sleep(5)
+        print("*******************************************************")
+        print("      Não foi possível fazer o post no Facebook...      ")
+        print("*******************************************************\n")
+
+        mensagem_log = "Não foi possível fazer o post no Facebook... Tentaremos novamente mais tarde"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
     def conclusao_verificacao_postagem():
         time.sleep(5)
         print("*******************************************************")
@@ -95,6 +128,16 @@ class Mensagens:
         print("*******************************************************\n")
 
         mensagem_log = "**Fazendo anúncio no Discord...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    def post_redes():
+        time.sleep(5)
+        print("*******************************************************")
+        print("            Iniciando anúncio nas redes...              ")
+        print("*******************************************************\n")
+
+        mensagem_log = "**Iniciando anúncio nas redes...**"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 

@@ -21,7 +21,7 @@ class Obra:
 
 
     def adicionar_capitulo(self, numero_capitulo, link_capitulo, data_postagem):
-        capitulo = capitulo(numero_capitulo, link_capitulo, data_postagem)
+        capitulo = Capitulo(numero_capitulo, link_capitulo, data_postagem)
         self.lista_de_capitulos.append(capitulo)
 
     

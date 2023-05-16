@@ -1,5 +1,6 @@
 from dao.Web_Screper_Site import Web_Screper_Site
 from dao.Conexao_Discord import Conexao_Discord
+from dao.Conexao_Facebook import Conexao_Facebook
 from classes_io.Gestor_JSON import Gestor_JSON
 from controller.Controller_IO import Controller_IO
 from model.posts.Post_Discord import Post_Discord
@@ -15,15 +16,21 @@ class Controller_Postagem:
         def valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro):
             print("\n*******************************************************")
             Mensagens.mensagem_lista_de_obras_para_verificar(lista_de_obras)
+            print(lista_de_obras_contidas_no_registro)
 
             for obra_atual in lista_de_obras:
                 for obra_contida_no_registro in lista_de_obras_contidas_no_registro:
                     if obra_atual.titulo_obra == obra_contida_no_registro.titulo_obra:
+                        capitulos_restantes = []
                         for capitulo_atual in obra_atual.lista_de_capitulos:
                             for capitulo_contido_no_registro in obra_contida_no_registro.lista_de_capitulos:
                                 if capitulo_atual.numero_capitulo == capitulo_contido_no_registro.numero_capitulo:
                                     print(f"Removendo capitulo que já foi anunciado antes: {capitulo_atual}")
-                                    obra_atual.lista_de_capitulos.remove(capitulo_atual)
+                                    break
+                            else:
+                                capitulos_restantes.append(capitulo_atual)
+
+                        obra_atual.lista_de_capitulos = capitulos_restantes
 
             lista_de_obras = [obra for obra in lista_de_obras if obra.lista_de_capitulos]
 
@@ -43,31 +50,54 @@ class Controller_Postagem:
             lista_de_obras_atualizada = valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro)
             Mensagens.conclusao_verificacao_postagem()
 
-            Mensagens.post_discord()
+            Mensagens.post_redes()
             for obra in lista_de_obras_atualizada:
-                post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
-                Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
-                Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
 
-                #Aqui vai a parte do facebook
-                #Mensagens.post_facebook()
-                #post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
-                #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
+                try:
+                    Mensagens.post_discord()
+                    post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
+                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
+                except:
+                    Mensagens.nao_foi_possivel_postar_discord()
+                    return
+
+                try:
+                    Mensagens.post_facebook()
+                    post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
+                except:
+                    Mensagens.nao_foi_possivel_postar_facebook()
+                    return
+
+                time.sleep(10)
      
         #Envia os dados para post
         else:
             print("Nenhum registro encontrado, pulado para o anúncio!")
             Mensagens.conclusao_verificacao_postagem()
-
-            Mensagens.post_discord()
+            
+            Mensagens.post_redes()
             for obra in lista_de_obras:
-                Mensagens.post_discord()
-                post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
-                Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
-                
-                #Aqui vai a parte do facebook
 
-                time.sleep(300)
+                try:
+                    Mensagens.post_discord()
+                    post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
+                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord)
+                except:
+                    Mensagens.nao_foi_possivel_postar_discord()
+                    return
+                
+                try:
+                    Mensagens.post_facebook()
+                    post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
+                except:
+                    Mensagens.nao_foi_possivel_postar_facebook()
+                    return
+
+                time.sleep(10)
                 
         for obra in lista_de_obras_atualizada:
             for obra_contida in lista_de_obras_contidas_no_registro:

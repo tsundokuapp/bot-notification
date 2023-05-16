@@ -101,8 +101,8 @@ class Post_Discord:
             **Capítulo fresquinho para todos!**
             <:uhu:867903115469393980>
 
-          Postados capítulos de: **[{primeiro_capitulo.numero_capitulo}]({primeiro_capitulo.link_capitulo})** -
-            Até: **[{ultimo_capitulo.numero_capitulo}]({ultimo_capitulo.link_capitulo})** 
+            Postados capítulos de: **[{ultimo_capitulo.numero_capitulo}]({ultimo_capitulo.link_capitulo})** -
+            Até: **[{primeiro_capitulo.numero_capitulo}]({primeiro_capitulo.link_capitulo})** 
 
             Não esqueçam de ir na aba de {tag_aba} e assinar as suas séries favoritas pra sempre receber notificação quando elas forem lançadas. <:anotadinho:970678923052613735>
             

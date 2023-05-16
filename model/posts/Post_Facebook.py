@@ -93,8 +93,8 @@ class Post_Facebook:
             Capítulo fresquinho para Todos!
 
             {self.titulo_obra}
-            Postados capítulos de:{primeiro_capitulo.numero_capitulo} -
-            Até: {ultimo_capitulo.numero_capitulo}
+            Postados capítulos de:{ultimo_capitulo.numero_capitulo} -
+            Até: {primeiro_capitulo.numero_capitulo}
 
             {primeiro_capitulo.link_capitulo}
 
@@ -106,4 +106,4 @@ class Post_Facebook:
             
             '''
 
-        return mensagem_final
+        return mensagem_facebook
