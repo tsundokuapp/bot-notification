@@ -46,6 +46,7 @@ class Controller_Postagem:
             Mensagens.post_discord()
             for obra in lista_de_obras_atualizada:
                 post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                 Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
 
                 #Aqui vai a parte do facebook

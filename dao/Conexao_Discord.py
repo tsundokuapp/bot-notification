@@ -1,5 +1,3 @@
-from model.Mensagens import Mensagens
-
 from dotenv import load_dotenv
 import discord
 import os
@@ -7,8 +5,6 @@ import os
 class Conexao_Discord:
 
     def postar_anuncio_discord(post_obra):
-        Mensagens.mensagen_realizando_post_obra(post_obra.nome_no_anuncio)
-
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
