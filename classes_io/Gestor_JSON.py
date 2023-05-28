@@ -84,4 +84,35 @@ class Gestor_JSON:
             dados_unicos_obras = json.load(arquivo_json)
 
         return dados_unicos_obras
+
+    def receber_lista_obras_json_nao_permitidas_fb():
+        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+        pasta_relatorios_capitulos = os.path.join(diretorio_atual, "registro_capitulos")
+
+        with open(f"{pasta_relatorios_capitulos}/obras_nao_permitidas.json", "r") as arquivo_json:
+            json_obras = arquivo_json.read()
+        
+
+        lista_de_obras = []
+
+        try:
+            lista_de_dicionarios = json.loads(json_obras)
+
+        except Exception as e:
+            print("Não existe arquivo para receber os dados.")
+            with open(f"{pasta_relatorios_capitulos}/obras.json", "w") as arquivo_json:
+                arquivo_json.write(json_obras)
+            return []
+            
+
+        for dicionario_obra in lista_de_dicionarios:
+            obra = Obra(
+                titulo_obra=dicionario_obra["titulo_obra"],
+                imagem_obra="",
+                url_obra=""
+            )
+            
+            lista_de_obras.append(obra)
+        print("Registro Recebido!")
+        return lista_de_obras
         

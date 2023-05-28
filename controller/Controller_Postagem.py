@@ -13,6 +13,10 @@ import time
 class Controller_Postagem:
 
     def execucao_principal():
+        def remover_obras_que_nao_pode_postar(lista_de_obras_para_postar, lista_de_obras_nao_permitidas):
+            obras_filtradas = [obra for obra in lista_de_obras_para_postar if obra['titulo_obra'] not in [obra_json['titulo_obra'] for obra_json in lista_de_obras_nao_permitidas]]
+            return obras_filtradas
+
         def valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro):
             print("\n*******************************************************")
             Mensagens.mensagem_lista_de_obras_para_verificar(lista_de_obras)
@@ -52,7 +56,6 @@ class Controller_Postagem:
 
             Mensagens.post_redes()
             for obra in lista_de_obras_atualizada:
-
                 try:
                     Mensagens.post_discord()
                     post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
@@ -62,6 +65,11 @@ class Controller_Postagem:
                     Mensagens.nao_foi_possivel_postar_discord()
                     return
 
+                time.sleep(10)
+
+            lista_de_obras_nao_permitidas = Gestor_JSON.receber_lista_obras_json_nao_permitidas_fb()
+            lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras_atualizada,lista_de_obras_nao_permitidas)
+            for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook()
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
@@ -88,7 +96,12 @@ class Controller_Postagem:
                 except:
                     Mensagens.nao_foi_possivel_postar_discord()
                     return
-                
+
+                time.sleep(10)
+            
+            lista_de_obras_nao_permitidas = Gestor_JSON.receber_lista_obras_json_nao_permitidas_fb()
+            lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras_atualizada,lista_de_obras_nao_permitidas)
+            for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook()
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())

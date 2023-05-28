@@ -4,6 +4,7 @@ database_credentials.txt
 
 # Arquivos de log
 *.log
+obras.json
 
 # Diretórios de dependências
 venv/
