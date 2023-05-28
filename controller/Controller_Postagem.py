@@ -14,7 +14,7 @@ class Controller_Postagem:
 
     def execucao_principal():
         def remover_obras_que_nao_pode_postar(lista_de_obras_para_postar, lista_de_obras_nao_permitidas):
-            obras_filtradas = [obra for obra in lista_de_obras_para_postar if obra['titulo_obra'] not in [obra_json['titulo_obra'] for obra_json in lista_de_obras_nao_permitidas]]
+            obras_filtradas = [obra for obra in lista_de_obras_para_postar if obra.titulo_obra not in [obra_json.titulo_obra for obra_json in lista_de_obras_nao_permitidas]]
             return obras_filtradas
 
         def valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro):

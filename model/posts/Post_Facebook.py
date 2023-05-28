@@ -37,8 +37,8 @@ class Post_Facebook:
         elif len(self.lista_de_capitulos) == 2:
             print("postando: " + str(self.lista_de_capitulos))
             
-            primeiro_capitulo = self.lista_de_capitulos[0]
-            segundo_capitulo = self.lista_de_capitulos[1]
+            primeiro_capitulo = self.lista_de_capitulos[1]
+            segundo_capitulo = self.lista_de_capitulos[0]
 
             mensagem_facebook = f'''
             
@@ -60,9 +60,9 @@ class Post_Facebook:
         elif len(self.lista_de_capitulos) == 3:
             print("postando: " + str(self.lista_de_capitulos))
             
-            primeiro_capitulo = self.lista_de_capitulos[0]
+            primeiro_capitulo = self.lista_de_capitulos[2]
             segundo_capitulo = self.lista_de_capitulos[1]
-            terceiro_capitulo = self.lista_de_capitulos[2]
+            terceiro_capitulo = self.lista_de_capitulos[0]
 
             mensagem_facebook = f'''
             
@@ -96,7 +96,7 @@ class Post_Facebook:
             Postados capítulos de:{ultimo_capitulo.numero_capitulo} -
             Até: {primeiro_capitulo.numero_capitulo}
 
-            {primeiro_capitulo.link_capitulo}
+            {ultimo_capitulo.numero_capitulo}
 
             Aproveita e passa lá no Discord para conversar com a gente:
             https://discord.gg/x4MyhMn3TQ
