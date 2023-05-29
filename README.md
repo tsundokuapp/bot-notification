@@ -1,4 +1,5 @@
-# gestor_postagem_tsun
+# Bot de notificações no Discord
+
 Python 3.10.10
 OBS: É preciso ter o python3 instalado, assim como o pip e venv.
 
