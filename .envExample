@@ -1,0 +1,7 @@
+API_KEY = token_bot_discord
+CANAL_LANCAMENTOS = channel_id
+CANAL_TESTES = channel_id_tests
+CANAL_TAGS = channel_id_tags
+
+API_ID_PAGINA_FACEBOOK = api_facebook
+API_TOKEN_PAGINA = token_facebook_page
