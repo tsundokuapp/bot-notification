@@ -3,6 +3,7 @@ import os
 
 from model.Capitulo import Capitulo
 from model.Obra import Obra
+from model.Mensagens import Mensagens
 
 class Gestor_JSON:
 
@@ -40,10 +41,17 @@ class Gestor_JSON:
         diretorio_atual = os.path.dirname(os.path.abspath(__file__))
         pasta_relatorios_capitulos = os.path.join(diretorio_atual, "registro_capitulos")
 
+        arquivo_json = os.path.join(pasta_relatorios_capitulos, "obras.json")
+
+        if not os.path.exists(arquivo_json):
+            Mensagens.nao_existe_registro()
+            with open(arquivo_json, "w") as arquivo:
+                arquivo.write("[]")
+            return []
+
         with open(f"{pasta_relatorios_capitulos}/obras.json", "r") as arquivo_json:
             json_obras = arquivo_json.read()
         
-
         lista_de_obras = []
 
         try:

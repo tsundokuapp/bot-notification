@@ -22,6 +22,12 @@ class Mensagens:
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
+    def nao_existe_registro():
+        time.sleep(5)
+        mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
+        print(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        
 
     def mensagem_tempo_desde_exclusao(diferenca_dias):
         print("Tempo desde a última exclusão: " , diferenca_dias, " dias\n")

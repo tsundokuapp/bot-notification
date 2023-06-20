@@ -87,6 +87,8 @@ class Controller_Postagem:
             print("Nenhum registro encontrado, pulado para o anúncio!")
             Mensagens.conclusao_verificacao_postagem()
             
+            lista_de_obras_atualizada = lista_de_obras
+
             Mensagens.post_redes()
             for obra in lista_de_obras:
 
@@ -102,7 +104,9 @@ class Controller_Postagem:
                 time.sleep(10)
             
             lista_de_obras_nao_permitidas = Gestor_JSON.receber_lista_obras_json_nao_permitidas_fb()
-            lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras_atualizada,lista_de_obras_nao_permitidas)
+            
+            lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras,lista_de_obras_nao_permitidas)
+            
             for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook()
