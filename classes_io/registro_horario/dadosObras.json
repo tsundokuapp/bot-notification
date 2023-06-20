@@ -98,5 +98,15 @@
         "cargo_discord":"Super Minion",
         "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/05/SuperMinion.png",
         "cor":"0xFFFFFF"
+    },
+    "Hatsukoi Losstime":{
+        "cargo_discord":"Hatsukoi Losstime",
+        "url_imagem":"https://tsundoku.com.br/wp-content/uploads/2022/01/HatsukoiEmbed.jpg",
+        "cor":"0xF0EDF0"
+    },
+    "Kizu Darake No Jinsei":{
+        "cargo_discord":"Kizu Darake No Jinsei",
+        "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2023/06/00_01.jpg",
+        "cor":"0xFFFFFF"
     }
 }

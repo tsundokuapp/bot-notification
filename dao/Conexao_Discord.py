@@ -11,7 +11,7 @@ class Conexao_Discord:
         #Carregando as variaveis de ambiente
         load_dotenv()
         token = os.getenv('API_KEY')
-        canal = int(os.getenv('CANAL_TESTES'))
+        canal = int(os.getenv('CANAL_LANCAMENTOS'))
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         @client.event
@@ -26,10 +26,10 @@ class Conexao_Discord:
 
             cargo = discord.utils.get(guild.roles, name=post_obra.nome_no_anuncio)
             
-            mensagem_cargos = ""
-            #mensagem_cargos = f'''
-            #{cargo.mention} {cargo_todas_obras.mention}
-            #''' 
+            
+            mensagem_cargos = f'''
+            {cargo.mention} {cargo_todas_obras.mention}
+            ''' 
 
             embed = discord.Embed()
             embed.colour = post_obra.cor_int

@@ -4,7 +4,7 @@ import time
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-pasta_relatorios_capitulos = os.path.join('..', '/classes_io/registro_capitulos')
+pasta_relatorios_capitulos = '../classes_io/registro_capitulos'
 
 from classes_io.Gestor_TXT import Gestor_TXT
 from classes_io.Download_Imagens import Download_Imagens
@@ -33,7 +33,7 @@ while True:
         Download_Imagens.fazer_download_imagens_obras()
 
         Mensagens.mensagem_excluindo_relatorios_capitulos()
-        gestor_TXT.deleta_registro_capitulos(pasta_relatorios_capitulos)
+        gestor_TXT.deleta_registro_capitulos()
 
         data_anterior = data_atual
         gestor_TXT.atualiza_data_anterior(data_anterior)
