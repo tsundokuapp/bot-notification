@@ -61,11 +61,12 @@ class Controller_Postagem:
                     post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
+                
                 except Exception as e:
                     print("Erro ocorrido: ",e)
                     Mensagens.erro_no_codigo(e)
                     Mensagens.nao_foi_possivel_postar_discord()
-                    return
+                    Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
 
                 time.sleep(10)
 
@@ -73,12 +74,14 @@ class Controller_Postagem:
             lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras_atualizada,lista_de_obras_nao_permitidas)
             for obra in lista_de_obras_facebook:
                 try:
-                    Mensagens.post_facebook()
+                    Mensagens.post_facebook(obra.titulo_obra)
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
-                except:
+                
+                except Exception as e:
+                    Mensagens.erro_no_codigo(e)
                     Mensagens.nao_foi_possivel_postar_facebook()
-                    return
+                    Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
 
                 time.sleep(10)
      
@@ -99,7 +102,7 @@ class Controller_Postagem:
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord)
                 except:
                     Mensagens.nao_foi_possivel_postar_discord()
-                    return
+                    Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
 
                 time.sleep(10)
             
@@ -109,12 +112,12 @@ class Controller_Postagem:
             
             for obra in lista_de_obras_facebook:
                 try:
-                    Mensagens.post_facebook()
+                    Mensagens.post_facebook(obra.titulo_obra)
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 except:
                     Mensagens.nao_foi_possivel_postar_facebook()
-                    return
+                    Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
 
                 time.sleep(10)
                 

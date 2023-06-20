@@ -22,6 +22,13 @@ class Mensagens:
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
+
+    def mensagem_nao_foi_possivel_postar_obra(titulo_obra):
+        mensagem_log = f"Não foi possível fazer a postagem de {titulo_obra}, verifique se as informações dela foram cadastradas corretamente no JSON"
+        print(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
     def nao_existe_registro():
         time.sleep(5)
         mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
@@ -160,10 +167,10 @@ class Mensagens:
         mensagem_log = f"Realizando anúncio de {titulo_obra}"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
-    def post_facebook():
+    def post_facebook(titulo_obra):
         time.sleep(5)
         print("            Fazendo anúncio no Facebook...             ")
-        mensagem_log = "**Fazendo anúncio no Facebook...**"
+        mensagem_log = f"**Fazendo anúncio de {titulo_obra} no Facebook...**"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
