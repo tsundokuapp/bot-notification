@@ -23,7 +23,7 @@ class Web_Screper_Site:
 
         lista_de_obras = []
 
-        for numero_atual in [5,6,7,8]:
+        for numero_atual in [5,6,7,8,9,10,11,12]:
 
             dados_obra = self.receber_conteudo(numero_atual)
 

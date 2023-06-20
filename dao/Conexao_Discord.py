@@ -26,10 +26,10 @@ class Conexao_Discord:
 
             cargo = discord.utils.get(guild.roles, name=post_obra.nome_no_anuncio)
             
-            mensagem_cargos = ""
-            #mensagem_cargos = f'''
-            #{cargo.mention} {cargo_todas_obras.mention}
-            #''' 
+            
+            mensagem_cargos = f'''
+            {cargo.mention} {cargo_todas_obras.mention}
+            ''' 
 
             embed = discord.Embed()
             embed.colour = post_obra.cor_int

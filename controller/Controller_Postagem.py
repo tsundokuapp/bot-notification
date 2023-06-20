@@ -61,7 +61,9 @@ class Controller_Postagem:
                     post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
-                except:
+                except Exception as e:
+                    print("Erro ocorrido: ",e)
+                    Mensagens.erro_no_codigo(e)
                     Mensagens.nao_foi_possivel_postar_discord()
                     return
 
