@@ -24,10 +24,10 @@ class Gestor_TXT:
 
     
         def deleta_registro_capitulos(self):
-        pasta_relatorios = os.path.join(os.path.dirname(__file__),'registro_capitulos/')
-        caminho_completo_obras = os.path.join(pasta_relatorios, 'obras.json')
-        if os.path.isfile(caminho_completo_obras):
-            print(caminho_completo_obras + " Excluido!")
-            os.remove(caminho_completo_obras)
+            pasta_relatorios = os.path.join(os.path.dirname(__file__),'registro_capitulos/')
+            caminho_completo_obras = os.path.join(pasta_relatorios, 'obras.json')
+            if os.path.isfile(caminho_completo_obras):
+                print(caminho_completo_obras + " Excluido!")
+                os.remove(caminho_completo_obras)
 
     

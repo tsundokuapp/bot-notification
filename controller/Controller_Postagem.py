@@ -60,7 +60,7 @@ class Controller_Postagem:
                     Mensagens.post_discord()
                     post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
-                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord)  
+                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)  
                 
                 except Exception as e:
                     print("Erro ocorrido: ",e)
@@ -99,7 +99,7 @@ class Controller_Postagem:
                     Mensagens.post_discord()
                     post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
-                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord)
+                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)
                 except:
                     Mensagens.nao_foi_possivel_postar_discord()
                     Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)

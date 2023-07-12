@@ -4,7 +4,7 @@ import os
 
 class Conexao_Discord:
 
-    def postar_anuncio_discord(post_obra):
+    def postar_anuncio_discord(post_obra, e_um_teste):
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -13,6 +13,9 @@ class Conexao_Discord:
         token = os.getenv('API_KEY')
         canal = int(os.getenv('CANAL_LANCAMENTOS'))
         canal_id = int(os.getenv('CANAL_TAGS'))
+
+        if e_um_teste:
+            canal = int(os.getenv('CANAL_TESTES'));
 
         @client.event
         async def on_ready():
@@ -36,7 +39,7 @@ class Conexao_Discord:
             embed.add_field(name="", value=post_obra.retornar_mensagem_post(tags.mention))
             embed.set_image(url=post_obra.imagem_obra)
 
-            await channel.send(content=mensagem_cargos,embed=embed)
+            #await channel.send(content=mensagem_cargos,embed=embed)
 
             await client.close()
         print("Post no Discord realizado!")

@@ -108,5 +108,10 @@
         "cargo_discord":"Kizu Darake No Jinsei",
         "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2023/06/00_01.jpg",
         "cor":"0xFFFFFF"
+    },
+    "Teste de Postagem":{
+        "cargo_discord":"Kizu Darake No Jinsei",
+        "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2023/06/00_01.jpg",
+        "cor":"0xFFFFFF"
     }
 }
