@@ -1,8 +1,8 @@
-from classes_io.Gestor_JSON import Gestor_JSON
-from dao.Conexao_Discord import Conexao_Discord
-from model.Capitulo import Capitulo
-from model.Obra import Obra
-from model.posts.Post_Discord import Post_Discord
+from src.classes_io.Gestor_JSON import Gestor_JSON
+from src.dao.Conexao_Discord import Conexao_Discord
+from src.model.Capitulo import Capitulo
+from src.model.Obra import Obra
+from src.model.posts.Post_Discord import Post_Discord
 
 
 class TestConexaoDiscord:

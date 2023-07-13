@@ -20,4 +20,4 @@ ENV CHARSET pt_BR.UTF-8
 ENV LANG pt_BR.UTF-8
 ENV LC_COLLATE pt_BR.UTF-8
 
-CMD ["python", "main/main.py"]
+CMD ["python", "src/Main.py"]

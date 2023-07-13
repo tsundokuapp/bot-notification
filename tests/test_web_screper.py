@@ -1,4 +1,4 @@
-from dao.Web_Screper_Site import Web_Screper_Site
+from src.dao.Web_Screper_Site import Web_Screper_Site
 
 import locale
 import datetime
