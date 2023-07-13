@@ -29,6 +29,12 @@ class Mensagens:
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
+    def mensagem_obra_nao_tem_nenhum_capitulo(titulo_obra):
+        mensagem_log = f"A seguinte obra não tem nenhum capitulo:  {titulo_obra}, ela será pulada!"
+        print(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
     def nao_existe_registro():
         time.sleep(5)
         mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."

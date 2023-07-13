@@ -76,7 +76,7 @@ class Controller_Postagem:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
-                    Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
+                    #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 
                 except Exception as e:
                     Mensagens.erro_no_codigo(e)
@@ -114,7 +114,7 @@ class Controller_Postagem:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
                     post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
-                    Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
+                    #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 except:
                     Mensagens.nao_foi_possivel_postar_facebook()
                     Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)

@@ -27,6 +27,9 @@ class Web_Screper_Site:
 
             dados_obra = self.receber_conteudo(numero_atual)
 
+            if (dados_obra == []):
+                break
+
             titulo_obra = dados_obra[0]
             imagem_obra = dados_obra[3]
             url_obra = dados_obra[4]
@@ -100,7 +103,12 @@ class Web_Screper_Site:
         url_obra = ultima_atualizada.select_one('.tt a')['href']
 
         url_obra = ultima_atualizada.select_one('.bsx a')['href']
-        url_ultimo_capitulo = ultima_atualizada.select_one('.chfiv a')['href']
+        
+        try:
+            url_ultimo_capitulo = ultima_atualizada.select_one('.chfiv a')['href']
+        except:
+            Mensagens.mensagem_obra_nao_tem_nenhum_capitulo(titulo_obra)
+            return []
         
         numero_ultimo_capitulo = ultima_atualizada.select_one('.chfiv a').text
 
