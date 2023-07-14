@@ -1,4 +1,6 @@
-FROM python:3.10-alpine
+#remover o --platform linux/amd64 para rodar em qualquer arquitetura
+#ou especificar a arquitetura igual quando executar docker run
+FROM --platform=linux/amd64 python:3.10-alpine AS buid
 
 WORKDIR /home/project
 
