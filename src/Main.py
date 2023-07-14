@@ -1,3 +1,4 @@
+#!/bin/python
 from datetime import datetime
 import time
 
