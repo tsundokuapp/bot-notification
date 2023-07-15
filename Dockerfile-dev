@@ -1,5 +1,4 @@
-# para desenvolvimento use o Dockerfile-dev
-FROM --platform=linux/amd64 python:3.10-alpine AS buid
+FROM python:3.10-alpine
 
 WORKDIR /home/project
 
