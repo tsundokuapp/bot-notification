@@ -7,16 +7,9 @@ on:
     branches:
       - release
 jobs:
-  check-application:
+  deploy-image-dockerhub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - run: pip install -r requirements.txt
-      - run: python src/Main.py
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
