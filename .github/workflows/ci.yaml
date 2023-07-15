@@ -1,6 +1,6 @@
 name: ci-python-workflow
 on:
-  merge:
+  pull_request:
     branches: [ release ]
 jobs:
   check-application:
