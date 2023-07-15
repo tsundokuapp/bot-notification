@@ -1,7 +1,8 @@
 name: ci-python-workflow
 on:
   pull_request:
-    branches: [ release ]
+    branches:
+      - release
 jobs:
   check-application:
     runs-on: ubuntu-latest
