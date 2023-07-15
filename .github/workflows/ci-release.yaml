@@ -1,6 +1,9 @@
-name: ci-python-workflow
+name: ci-python-release
 on:
   pull_request:
+    branches:
+      - release
+  push:
     branches:
       - release
 jobs:
