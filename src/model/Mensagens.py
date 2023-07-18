@@ -40,6 +40,20 @@ class Mensagens:
         mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
         print(mensagem_log)
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    def fora_do_horario_de_postagem():
+        time.sleep(5)
+        mensagem_log = "Fora do horario de postagem, será verificado as 14H, 16H, 18H e 20H!"
+        print(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    def fora_do_horario_de_postagem_dois():
+        time.sleep(5)
+        mensagem_log = "Já bati meu ponto patrão, agora só amanhã!"
+        print(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
         
 
     def mensagem_tempo_desde_exclusao(diferenca_dias):
@@ -205,7 +219,9 @@ class Mensagens:
     def proxima_verificacao_capitulos():
         time.sleep(5)
         now = datetime.now()
-        next_execution = now + timedelta(seconds=18000)
+
+        # 7200 seconds => 2 hours
+        next_execution = now + timedelta(seconds=7200)
 
         print("\nA próxima verificação dos capítulos será {}:{}!\n".format(next_execution.hour, next_execution.minute))
         print("*******************************************************\n")

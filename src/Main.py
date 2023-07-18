@@ -1,5 +1,6 @@
 #!/bin/python
-from datetime import datetime
+
+import datetime
 import time
 
 from classes_io.Gestor_TXT import Gestor_TXT
@@ -18,7 +19,7 @@ if __name__ == "__main__":
     Download_Imagens.fazer_download_imagens_obras()
 
     while True:
-        data_atual = datetime.now().date()
+        data_atual = datetime.datetime.now().date()
 
         Mensagens.inicializando_validacao_arquivos_antigos()
         if data_anterior:
@@ -35,9 +36,25 @@ if __name__ == "__main__":
             data_anterior = data_atual
             gestor_TXT.atualiza_data_anterior(data_anterior)
 
-        # executar ação a cada 15 minutos
-        Controller_Postagem.execucao_principal()
+        hora_atual = datetime.datetime.now().time()
 
-        #validar_atualizacao_obras()
-        Mensagens.proxima_verificacao_capitulos()
-        time.sleep(18000)
+        horario1 = datetime.time(14, 0)
+        horario2 = datetime.time(16, 0)
+        horario3 = datetime.time(18, 0)
+        horario4 = datetime.time(20, 0)   
+
+        if hora_atual < horario1:
+            Mensagens.fora_do_horario_de_postagem()
+        elif hora_atual < horario2:
+            Controller_Postagem.execucao_principal()
+            Mensagens.proxima_verificacao_capitulos()
+        elif hora_atual < horario3:
+            Controller_Postagem.execucao_principal()
+            Mensagens.proxima_verificacao_capitulos()
+        elif hora_atual < horario4:
+            Controller_Postagem.execucao_principal()
+            Mensagens.proxima_verificacao_capitulos()
+        else:
+            Mensagens.fora_do_horario_de_postagem_dois()        
+
+        time.sleep(7200)
