@@ -1,2 +1,2 @@
 # Bot de notificações no Discord
-branch developer
+release developer
