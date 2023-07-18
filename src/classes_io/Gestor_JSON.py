@@ -8,7 +8,6 @@ from model.Mensagens import Mensagens
 class Gestor_JSON:
 
     def criar_json_com_lista_obras(lista_de_obras):
-        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
         pasta_relatorios_capitulos = os.path.join('assets/',"registro_capitulos")
 
         lista_de_dicionarios = []
@@ -84,17 +83,22 @@ class Gestor_JSON:
 
 
     def retornar_dados_unicos_obras():
-        pasta_relatorios_capitulos = os.path.join('assets/', "registro_horario")
+        print(os.getcwd())
+        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+        pasta_dados_obras = os.path.join(diretorio_atual, "dados_obras")
 
-        with open(f"{pasta_relatorios_capitulos}/dadosObras.json", "r") as arquivo_json:
+        with open(f"{pasta_dados_obras}/dadosObras.json", "r") as arquivo_json:
             dados_unicos_obras = json.load(arquivo_json)
 
         return dados_unicos_obras
 
     def receber_lista_obras_json_nao_permitidas_fb():
         pasta_relatorios_capitulos = os.path.join('assets/', "registro_capitulos")
+        
+        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+        pasta_dados_obras = os.path.join(diretorio_atual, "dados_obras")
 
-        with open(f"{pasta_relatorios_capitulos}/obras_nao_permitidas.json", "r") as arquivo_json:
+        with open(f"{pasta_dados_obras}/obras_nao_permitidas.json", "r") as arquivo_json:
             json_obras = arquivo_json.read()
         
 

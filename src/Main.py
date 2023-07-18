@@ -1,5 +1,4 @@
-from datetime import datetime
-from datetime import time
+import datetime
 import time
 
 from classes_io.Gestor_TXT import Gestor_TXT
@@ -18,7 +17,7 @@ if __name__ == "__main__":
     Download_Imagens.fazer_download_imagens_obras()
 
     while True:
-        data_atual = datetime.now().date()
+        data_atual = datetime.datetime.now().date()
 
         Mensagens.inicializando_validacao_arquivos_antigos()
         if data_anterior:
@@ -35,7 +34,7 @@ if __name__ == "__main__":
             data_anterior = data_atual
             gestor_TXT.atualiza_data_anterior(data_anterior)
 
-        hora_atual = datetime.now().time()
+        hora_atual = datetime.datetime.now().time()
 
         horario1 = datetime.time(14, 0)
         horario2 = datetime.time(16, 0)
