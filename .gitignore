@@ -1,6 +1,7 @@
 # Arquivos de configuração local
 config.ini
 database_credentials.txt
+doc-dev.md
 
 # Arquivos de log
 *.log
