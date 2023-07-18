@@ -219,6 +219,8 @@ class Mensagens:
     def proxima_verificacao_capitulos():
         time.sleep(5)
         now = datetime.now()
+
+        # 7200 seconds => 2 hours
         next_execution = now + timedelta(seconds=7200)
 
         print("\nA próxima verificação dos capítulos será {}:{}!\n".format(next_execution.hour, next_execution.minute))
