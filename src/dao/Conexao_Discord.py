@@ -15,7 +15,7 @@ class Conexao_Discord:
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         if e_um_teste:
-            canal = int(os.getenv('CANAL_TESTES'))
+            canal = 1093909914100969472
 
         @client.event
         async def on_ready():
@@ -53,7 +53,7 @@ class Conexao_Discord:
         # Carregando as variaveis de ambiente
         load_dotenv()
         token = os.getenv('API_KEY')
-        canal = int(os.getenv('CANAL_TESTES'))
+        canal = 1093909914100969472
 
         @client.event
         async def on_ready():
