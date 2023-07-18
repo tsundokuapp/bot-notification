@@ -15,7 +15,7 @@ class Conexao_Discord:
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         if e_um_teste:
-            canal = int(os.getenv('CANAL_TESTES'));
+            canal = int(os.getenv('CANAL_TESTES'))
 
         @client.event
         async def on_ready():
