@@ -13,3 +13,6 @@ node_modules/
 
 # Credenciais de Ambiente
 .env
+
+# Arquivos de cache
+__pycache__/
