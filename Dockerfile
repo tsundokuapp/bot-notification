@@ -22,4 +22,7 @@ ENV CHARSET pt_BR.UTF-8
 ENV LANG pt_BR.UTF-8
 ENV LC_COLLATE pt_BR.UTF-8
 
-CMD ["python", "src/Main.py"]
+RUN echo "0 12 * * * cd /home/project && /usr/local/bin/python3 /home/project/src/Main.py" >> /var/spool/cron/crontabs/root
+RUN echo "0 16-22/2 * * * cd /home/project && /usr/local/bin/python3 /home/project/src/Main.py" >> /var/spool/cron/crontabs/root
+
+CMD crond -f
