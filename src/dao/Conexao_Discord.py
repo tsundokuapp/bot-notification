@@ -53,7 +53,7 @@ class Conexao_Discord:
         # Carregando as variaveis de ambiente
         load_dotenv()
         token = os.getenv('API_KEY')
-        canal = os.getenv('CANAL_TESTES')
+        canal = int(os.getenv('CANAL_TESTES'))
 
         @client.event
         async def on_ready():
