@@ -114,6 +114,11 @@
         "url_imagem":"https://tsundoku.com.br/wp-content/uploads/2023/07/Banner_Bocchi.png",
         "cor":"0xFFD6FF"
     },
+    "A Saga do Cavaleiro Zumbi":{
+        "cargo_discord": "A Saga do Cavaleiro Zumbi",
+        "url_imagem": "https://tsundoku.com.br/wp-content/uploads/2023/02/Capa_A-Saga-do-Cavaleiro-Zumbi.png",
+        "cor": "0x265252"
+    },
     "Teste de Postagem":{
         "cargo_discord":"Kizu Darake No Jinsei",
         "url_imagem":"https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2023/06/00_01.jpg",

@@ -84,8 +84,8 @@ class Gestor_JSON:
 
     def retornar_dados_unicos_obras():
         print(os.getcwd())
-        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
-        pasta_dados_obras = os.path.join(diretorio_atual, "dados_obras")
+
+        pasta_dados_obras = os.path.join('assets/', "dados_obras")
 
         with open(f"{pasta_dados_obras}/dadosObras.json", "r") as arquivo_json:
             dados_unicos_obras = json.load(arquivo_json)
@@ -95,13 +95,11 @@ class Gestor_JSON:
     def receber_lista_obras_json_nao_permitidas_fb():
         pasta_relatorios_capitulos = os.path.join('assets/', "registro_capitulos")
         
-        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
-        pasta_dados_obras = os.path.join(diretorio_atual, "dados_obras")
+        pasta_dados_obras = os.path.join('assets/', "dados_obras")
 
         with open(f"{pasta_dados_obras}/obras_nao_permitidas.json", "r") as arquivo_json:
             json_obras = arquivo_json.read()
         
-
         lista_de_obras = []
 
         try:
