@@ -13,6 +13,9 @@ import time
 class Controller_Postagem:
 
     def execucao_principal():
+
+        gestor_json = Gestor_JSON()
+
         def remover_obras_que_nao_pode_postar(lista_de_obras_para_postar, lista_de_obras_nao_permitidas):
             obras_filtradas = [obra for obra in lista_de_obras_para_postar if obra.titulo_obra not in [obra_json.titulo_obra for obra_json in lista_de_obras_nao_permitidas]]
             return obras_filtradas
@@ -58,7 +61,7 @@ class Controller_Postagem:
             for obra in lista_de_obras_atualizada:
                 try:
                     Mensagens.post_discord()
-                    post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    post_obra_Discord = Post_Discord(obra, gestor_json.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)  
                 
@@ -70,12 +73,12 @@ class Controller_Postagem:
 
                 time.sleep(10)
 
-            lista_de_obras_nao_permitidas = Gestor_JSON.receber_lista_obras_json_nao_permitidas_fb()
+            lista_de_obras_nao_permitidas = gestor_json.receber_lista_obras_json_nao_permitidas_fb()
             lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras_atualizada,lista_de_obras_nao_permitidas)
             for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
-                    post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    post_obra_Facebook = Post_Facebook(obra, gestor_json.retornar_dados_unicos_obras())
                     #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 
                 except Exception as e:
@@ -97,7 +100,7 @@ class Controller_Postagem:
 
                 try:
                     Mensagens.post_discord()
-                    post_obra_Discord = Post_Discord(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    post_obra_Discord = Post_Discord(obra, gestor_json.retornar_dados_unicos_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)
                 except:
@@ -106,14 +109,14 @@ class Controller_Postagem:
 
                 time.sleep(10)
             
-            lista_de_obras_nao_permitidas = Gestor_JSON.receber_lista_obras_json_nao_permitidas_fb()
+            lista_de_obras_nao_permitidas = gestor_json.receber_lista_obras_json_nao_permitidas_fb()
             
             lista_de_obras_facebook = remover_obras_que_nao_pode_postar(lista_de_obras,lista_de_obras_nao_permitidas)
             
             for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
-                    post_obra_Facebook = Post_Facebook(obra, Gestor_JSON.retornar_dados_unicos_obras())
+                    post_obra_Facebook = Post_Facebook(obra, gestor_json.retornar_dados_unicos_obras())
                     #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 except:
                     Mensagens.nao_foi_possivel_postar_facebook()
@@ -132,7 +135,7 @@ class Controller_Postagem:
 
         
         Mensagens.adicionando_anuncios_no_registro()
-        Gestor_JSON.criar_json_com_lista_obras(lista_de_obras_contidas_no_registro)
+        gestor_json.criar_json_com_lista_obras(lista_de_obras_contidas_no_registro)
 
 
         

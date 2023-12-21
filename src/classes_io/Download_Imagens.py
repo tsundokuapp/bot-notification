@@ -6,8 +6,11 @@ from classes_io.Gestor_JSON import Gestor_JSON
 class Download_Imagens: 
 
     def fazer_download_imagens_obras():
+
+        gestor_json = Gestor_JSON()
+
         # Percorrer o JSON e baixar as imagens
-        dados = Gestor_JSON.retornar_dados_unicos_obras()
+        dados = gestor_json.retornar_dados_unicos_obras()
 
         diretorio_destino = 'assets/imagens'  # Diretório onde as imagens serão salvas
 

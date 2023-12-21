@@ -39,7 +39,7 @@ class Conexao_Discord:
             embed.add_field(name="", value=post_obra.retornar_mensagem_post(tags.mention))
             embed.set_image(url=post_obra.imagem_obra)
 
-            await channel.send(content=mensagem_cargos,embed=embed)
+            #await channel.send(content=mensagem_cargos,embed=embed)
 
             await client.close()
         print("Post no Discord realizado!")

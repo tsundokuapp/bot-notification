@@ -1,7 +1,6 @@
 #!/bin/python
 
 import datetime
-import time
 
 from classes_io.Gestor_TXT import Gestor_TXT
 from classes_io.Download_Imagens import Download_Imagens
