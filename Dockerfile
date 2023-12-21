@@ -10,6 +10,8 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
+RUN mkdir /temp && \ cp -r assets /temp
+
 COPY . .
 
 RUN apk add tzdata
@@ -26,3 +28,5 @@ RUN echo "0 12 * * * cd /home/project && /usr/local/bin/python3 /home/project/sr
 RUN echo "0 16-22/2 * * * cd /home/project && /usr/local/bin/python3 /home/project/src/Main.py" >> /var/spool/cron/crontabs/root
 
 CMD crond -f
+
+ENTRYPOINT ["/home/project/scripts/docker-entrypoint.sh"]
