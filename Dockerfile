@@ -10,7 +10,8 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-RUN mkdir /temp && \ cp -r assets /temp
+RUN mkdir /temp
+COPY assets /temp
 
 COPY . .
 

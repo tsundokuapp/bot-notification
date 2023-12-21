@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import discord
+import logging
 import os
 
 class Conexao_Discord:
@@ -47,6 +48,9 @@ class Conexao_Discord:
 
 
     def mensagem_de_log_discord(mensagem_log):
+
+        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -62,4 +66,4 @@ class Conexao_Discord:
             await channel.send(mensagem_log)  # Envia a mensagem sem um embed
             await client.close()
 
-        client.run(token)
+        client.run(token, log_handler=handler, log_level=logging.WARNING, root_logger=False)

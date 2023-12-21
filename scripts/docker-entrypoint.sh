@@ -8,3 +8,5 @@ fi
 
 # Removendo o diretório temporário /home/project/temp
 rm -rf /home/project/temp
+
+python3 /home/project/src/endpoint/bot_endpoint.py
