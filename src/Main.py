@@ -2,11 +2,11 @@
 
 import datetime
 
-from classes_io.Gestor_TXT import Gestor_TXT
-from classes_io.Download_Imagens import Download_Imagens
-from model.Mensagens import Mensagens
-from dao.Web_Screper_Site import Web_Screper_Site
-from controller.Controller_Postagem import Controller_Postagem
+from src.classes_io.Gestor_TXT import Gestor_TXT
+from src.classes_io.Download_Imagens import Download_Imagens
+from src.model.Mensagens import Mensagens
+from src.dao.Web_Screper_Site import Web_Screper_Site
+from src.controller.Controller_Postagem import Controller_Postagem
 
 if __name__ == "__main__":    
     gestor_TXT = Gestor_TXT()

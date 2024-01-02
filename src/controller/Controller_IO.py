@@ -1,5 +1,5 @@
-from classes_io.Gestor_JSON import Gestor_JSON
-from model.Mensagens import Mensagens
+from src.classes_io.Gestor_JSON import Gestor_JSON
+from src.model.Mensagens import Mensagens
 
 class Controller_IO:
 

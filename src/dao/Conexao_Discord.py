@@ -12,11 +12,11 @@ class Conexao_Discord:
         #Carregando as variaveis de ambiente
         load_dotenv()
         token = os.getenv('API_KEY')
-        canal = int(os.getenv('CANAL_LANCAMENTOS'))
+        canal = int(os.getenv('CANAL_TESTES'))
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         if e_um_teste:
-            canal = os.getenv('CANAL_TESTES')
+            canal = int(os.getenv('CANAL_TESTES'))
 
         @client.event
         async def on_ready():
@@ -33,14 +33,14 @@ class Conexao_Discord:
             
             mensagem_cargos = f'''
             {cargo.mention} {cargo_todas_obras.mention}
-            ''' 
+            '''
 
             embed = discord.Embed()
             embed.colour = post_obra.cor_int
             embed.add_field(name="", value=post_obra.retornar_mensagem_post(tags.mention))
             embed.set_image(url=post_obra.imagem_obra)
 
-            #await channel.send(content=mensagem_cargos,embed=embed)
+            await channel.send(content=mensagem_cargos,embed=embed)
 
             await client.close()
         print("Post no Discord realizado!")

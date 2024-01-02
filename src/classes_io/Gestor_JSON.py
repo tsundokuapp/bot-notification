@@ -1,9 +1,9 @@
 import json
 import os
 
-from model.Capitulo import Capitulo
-from model.Obra import Obra
-from model.Mensagens import Mensagens
+from src.model.Capitulo import Capitulo
+from src.model.Obra import Obra
+from src.model.Mensagens import Mensagens
 
 class Gestor_JSON:
 

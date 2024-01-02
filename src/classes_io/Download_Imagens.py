@@ -1,7 +1,7 @@
 import os
 import requests
 
-from classes_io.Gestor_JSON import Gestor_JSON
+from src.classes_io.Gestor_JSON import Gestor_JSON
 
 class Download_Imagens: 
 

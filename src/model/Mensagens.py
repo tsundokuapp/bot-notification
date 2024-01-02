@@ -1,4 +1,4 @@
-from dao.Conexao_Discord import Conexao_Discord
+from src.dao.Conexao_Discord import Conexao_Discord
 
 from datetime import datetime, timedelta
 import time
@@ -185,12 +185,15 @@ class Mensagens:
     def mensagen_realizando_post_obra(titulo_obra):
         print(f"Realizando anúncio de {titulo_obra}")
         mensagem_log = f"Realizando anúncio de {titulo_obra}"
+        
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
 
     def post_facebook(titulo_obra):
         time.sleep(5)
         print("            Fazendo anúncio no Facebook...             ")
         mensagem_log = f"**Fazendo anúncio de {titulo_obra} no Facebook...**"
+        
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
@@ -220,11 +223,5 @@ class Mensagens:
         time.sleep(5)
         now = datetime.now()
 
-        # 7200 seconds => 2 hours
-        next_execution = now + timedelta(seconds=7200)
-
-        print("\nA próxima verificação dos capítulos será {}:{}!\n".format(next_execution.hour, next_execution.minute))
-        print("*******************************************************\n")
-
-        mensagem_log = "\n**A próxima verificação dos capítulos será {}:{}!**\n".format(next_execution.hour, next_execution.minute)
+        mensagem_log = "Envio concluído, a guarde a próxima verificação. São feitas 12h, 16h, 18h, 20h e 22h."
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)

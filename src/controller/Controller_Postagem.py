@@ -1,10 +1,10 @@
-from dao.Web_Screper_Site import Web_Screper_Site
-from dao.Conexao_Discord import Conexao_Discord
-from dao.Conexao_Facebook import Conexao_Facebook
-from classes_io.Gestor_JSON import Gestor_JSON
-from controller.Controller_IO import Controller_IO
-from model.posts.Post_Discord import Post_Discord
-from model.posts.Post_Facebook import Post_Facebook
+from src.dao.Web_Screper_Site import Web_Screper_Site
+from src.dao.Conexao_Discord import Conexao_Discord
+from src.dao.Conexao_Facebook import Conexao_Facebook
+from src.classes_io.Gestor_JSON import Gestor_JSON
+from src.controller.Controller_IO import Controller_IO
+from src.model.posts.Post_Discord import Post_Discord
+from src.model.posts.Post_Facebook import Post_Facebook
 
 from model.Mensagens import Mensagens
 

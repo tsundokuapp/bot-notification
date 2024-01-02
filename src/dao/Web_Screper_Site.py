@@ -1,7 +1,7 @@
-from model.Capitulo import Capitulo
-from model.Obra import Obra
-from model.Mensagens import Mensagens
-from classes_io.Gestor_TXT import Gestor_TXT
+from src.model.Capitulo import Capitulo
+from src.model.Obra import Obra
+from src.model.Mensagens import Mensagens
+from src.classes_io.Gestor_TXT import Gestor_TXT
 
 from datetime import datetime, timedelta
 import requests
