@@ -11,8 +11,6 @@ class Post_Discord:
         self.cor_int = int(dados_unicos_obras[self.titulo_obra]['cor'], 16)
         self.imagem_obra = dados_unicos_obras[self.titulo_obra]['url_imagem']
 
-        print(f"Construindo Post {self.titulo_obra }...")
-
     
     def retornar_mensagem_post(self, tag_aba):
         if len(self.lista_de_capitulos) == 1:

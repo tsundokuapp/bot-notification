@@ -2,6 +2,7 @@
 FROM --platform=linux/amd64 python:3.10-alpine AS buid
 
 WORKDIR /home/project
+RUN export PYTHONPATH=/home/project
 
 # Esta linha não é necessária para a release
 #COPY .env .env
