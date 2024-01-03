@@ -7,7 +7,7 @@ class Atlas_DAO:
     def __init__(self):
         #Carregando as variaveis de ambiente
         load_dotenv()
-        self.uri = os.getenv('URI_ATLAS')
+        self.uri = os.getenv("URI_ATLAS")
         
         # Create a new client and connect to the server
         self.client = MongoClient(self.uri, server_api=ServerApi('1'))
@@ -52,14 +52,10 @@ class Atlas_DAO:
         # Definir projeção para excluir o campo '_id'
         projection = {'_id': 0}
 
-        # Recuperar todos os documentos da coleção sem o campo '_id'
-        todos_documentos = colecao.find({}, projection=projection)
+        # Recuperar todos os documentos da coleção sem o campo '_id' e ordená-los por um campo específico (ex: 'titulo') em ordem alfabética ascendente
+        todos_documentos = colecao.find({}, projection=projection).sort('titulo', 1)
 
         return todos_documentos
-
-        # Iterar sobre o cursor retornado para acessar todos os documentos
-        #for documento in todos_documentos:
-        #    print(documento)
 
 
     def excluir_obra_por_titulo(self, titulo_a_remover):

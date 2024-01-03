@@ -7,7 +7,9 @@ from discord import app_commands
 
 from dotenv import load_dotenv
 from typing import Optional
+
 from src.dao.Atlas_Dao import Atlas_DAO
+from src.endpoint.pagination import Pagination
 
 #Carregando as variaveis de ambiente
 load_dotenv()
@@ -77,14 +79,27 @@ async def remover_obra(interaction: discord.Interaction, titulo: str):
 #Comando para listar obras que estão no banco
 @client.tree.command()
 async def listar_obras(interaction: discord.Interaction):
-    """Listar obras registradas."""
 
-    colecao_obras = atlas_dao.receber_obras()
+    cursor_obras = atlas_dao.receber_obras()  # Recebendo o cursor do MongoDB
+    colecao_obras = list(cursor_obras)  # Convertendo o cursor para uma lista de obras
 
-    # Formatação das coleções para exibição na mensagem
-    formatted_collections = "\n".join([f"{index + 1}. {obra}" for index, obra in enumerate(colecao_obras)])
+    max_docs_por_pagina = 10
 
-    await interaction.response.send_message(f'Obras registradas:\n{formatted_collections}')
+    async def get_page(page: int):
+        emb = discord.Embed(title="Obras Registradas", description="Obras que estão salvas no banco de dados.")
+        offset = (page - 1) * max_docs_por_pagina
+
+        parte_documentos = colecao_obras[offset:offset + max_docs_por_pagina]
+
+        formatted_collections = "\n".join([f"{index + 1}. {obra}" for index, obra in enumerate(parte_documentos)])
+        emb.description = formatted_collections
+
+        total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
+        emb.set_footer(text=f"Página {page} de {total_pages}")
+        
+        return emb, total_pages
+
+    await Pagination(interaction, get_page).navegate()
 
 
 #Comando para forçar verificação de novos capitulos

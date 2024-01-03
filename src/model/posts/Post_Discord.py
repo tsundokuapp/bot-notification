@@ -7,10 +7,18 @@ class Post_Discord:
 
         self.lista_de_capitulos = obra.lista_de_capitulos
 
-        self.nome_no_anuncio = dados_unicos_obras[self.titulo_obra]['cargo_discord']
-        self.cor_int = int(dados_unicos_obras[self.titulo_obra]['cor'], 16)
-        self.imagem_obra = dados_unicos_obras[self.titulo_obra]['url_imagem']
+        obra_encontrada = None
+        for obra in dados_unicos_obras:
+            if obra.get('titulo') == self.titulo_obra:
+                obra_encontrada = obra
+                break
 
+        if obra_encontrada:
+            self.nome_no_anuncio = obra_encontrada['cargo_discord']
+            self.cor_int = int(obra_encontrada['cor'], 16)
+            self.imagem_obra = obra_encontrada['url_imagem']
+        else:
+            print("Não foi possível encontrar obra nos registros.")
     
     def retornar_mensagem_post(self, tag_aba):
         if len(self.lista_de_capitulos) == 1:
