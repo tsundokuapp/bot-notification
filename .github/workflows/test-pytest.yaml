@@ -21,9 +21,9 @@ jobs:
         with:
           python-version: 3.10
 
-      - name: Install dependencies
+      - name: Install dependencies and set PYTHONPATH
         run: |
-          export PYTHONPATH=/home/project
+          export PYTHONPATH=$(pwd)
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
