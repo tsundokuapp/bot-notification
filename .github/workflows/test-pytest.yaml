@@ -37,4 +37,4 @@ jobs:
           URI_ATLAS: ${{ secrets.URI_ATLAS }}
         run: |
           export PYTHONPATH=$(pwd)
-          python -m pytest -v
+          LC_ALL=pt_BR.UTF-8 LANG=pt_BR.UTF-8 python -m pytest -v
