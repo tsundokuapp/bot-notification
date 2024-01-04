@@ -40,4 +40,4 @@ class Capitulo:
 
 
     def printCapitulo(self) -> None:
-        self.logger_infos.info("Numero: ",self.numero_capitulo," Link: ", self.link_capitulo, " Data Postagem: ", self.data_postagem)
+        print("Numero: ",self.numero_capitulo," Link: ", self.link_capitulo, " Data Postagem: ", self.data_postagem)

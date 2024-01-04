@@ -1,3 +1,5 @@
+import logging
+
 from src.model.Obra import Obra
 from src.model.Capitulo import Capitulo
 from src.model.posts.Post_Discord import Post_Discord
