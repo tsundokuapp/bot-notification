@@ -11,21 +11,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:  
+      matrix:  
+        python-version: ["3.10"] 
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10
-
-      - name: Install dependencies and set PYTHONPATH
-        run: |
-          export PYTHONPATH=$(pwd)
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    steps:  
+      - uses: actions/checkout@v3  
+      - name: Set up Python ${{ matrix.python-version }}  
+        uses: actions/setup-python@v4  
+        with:  
+          python-version: ${{ matrix.python-version }}  
+      - name: Install dependencies  
+        run: |  
+          python -m pip install --upgrade pip  
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
 
       - name: Run Pytest with secrets
         env:
@@ -37,4 +36,5 @@ jobs:
           CANAL_TESTES: ${{ secrets.CANAL_TESTES }}
           URI_ATLAS: ${{ secrets.URI_ATLAS }}
         run: |
+          export PYTHONPATH=$(pwd)
           python -m pytest -v
