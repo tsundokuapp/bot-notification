@@ -6,13 +6,15 @@ import logging
 from src.classes_io.Gestor_TXT import Gestor_TXT
 from src.classes_io.Download_Imagens import Download_Imagens
 from src.model.Mensagens import Mensagens
+from src.model.Logger_Config import Logger_Config
+from src.dao.Atlas_Dao import Atlas_DAO
 from src.dao.Web_Screper_Site import Web_Screper_Site
 from src.controller.Controller_Postagem import Controller_Postagem
-from src.model.Logger_Config import Logger_Config
 
 if __name__ == "__main__":
 
     logger_config = Logger_Config()
+    atlas_dao = Atlas_DAO()
 
     try:
         gestor_TXT = Gestor_TXT()
@@ -34,7 +36,7 @@ if __name__ == "__main__":
             Mensagens.atualizando_diretorio_imagens()
             Download_Imagens.fazer_download_imagens_obras()
             Mensagens.mensagem_excluindo_relatorios_capitulos()
-            gestor_TXT.deleta_registro_capitulos()
+            atlas_dao.excluir_registros_de_obras_anunciadas()
             data_anterior = data_atual
             gestor_TXT.atualiza_data_anterior(data_anterior)
 

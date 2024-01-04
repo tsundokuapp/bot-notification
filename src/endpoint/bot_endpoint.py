@@ -91,7 +91,7 @@ async def adicionar_obra_nao_permitida_fb(interaction: discord.Interaction, titu
         await interaction.response.send_message(f'Erro ao adicionar {titulo}: {e}')
 
 
-#Comando para remover obras do banco
+#Comando para remover obras registrada no banco
 @client.tree.command()
 @app_commands.describe(
     titulo='Titulo que esta no site'
@@ -177,7 +177,7 @@ async def excluir_registros(interaction: discord.Interaction):
 
     data_atual = datetime.datetime.now().date()
 
-    gestor_TXT.deleta_registro_capitulos()
+    atlas_dao.excluir_registros_de_obras_anunciadas()
     gestor_TXT.atualiza_data_anterior(data_atual)
 
     await interaction.response.send_message(f'Registros excluídos e data atualizada.')
@@ -198,6 +198,7 @@ async def informacoes_postagem(interaction: discord.Interaction):
     embed.add_field(name="Gerenciar Postagem", value="Use /forcar_postagem e /excluir_registros.", inline=False)
     embed.add_field(name="Gerenciar obras não permitidas no FB", value="Use /adicionar_obra_nao_permitida_fb e /listar_obra_nao_permitida_fb .", inline=False)
     embed.add_field(name="Comandos utilitários", value="/ping, /joined e /informacoes_postagem .", inline=False)
+    embed.add_field(name="Versão em execução", value="3.0.0", inline=False)
 
     await interaction.response.send_message(embed=embed)
 

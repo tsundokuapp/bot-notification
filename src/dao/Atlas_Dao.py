@@ -40,8 +40,6 @@ class Atlas_DAO:
         db = self.client.DadosPostagem
         colecao = db.registroObrasPostadas
 
-        lista_de_dicionarios = []
-
         for obra in lista_de_obras:
             dicionario_obra = {
                 "titulo_obra": obra.titulo_obra,
@@ -56,14 +54,21 @@ class Atlas_DAO:
                     for capitulo in obra.lista_de_capitulos
                 ]
             }
-            lista_de_dicionarios.append(dicionario_obra)
 
-        try:
-            # Inserir os dados na coleção
-            result = colecao.insert_many(lista_de_dicionarios)
-            self.logger_infos.info(f"Registros inseridos no MongoDB: {result.inserted_ids}")
-        except Exception as e:
-            Mensagens.erro_no_banco_de_dados(f"Erro ao inserir registros no MongoDB: {e}")
+            try:
+                # Filtro para verificar se o documento já existe pelo titulo_obra
+                filtro = {"titulo_obra": obra.titulo_obra}
+
+                # Atualizar ou inserir os dados na coleção
+                result = colecao.update_one(
+                    filtro,
+                    {"$set": dicionario_obra},
+                    upsert=True
+                )
+
+                self.logger_infos.info(f"Registros inseridos/atualizados no MongoDB: {result.upserted_id if result.upserted_id else result.modified_count}")
+            except Exception as e:
+                Mensagens.erro_no_banco_de_dados(f"Erro ao inserir/atualizar registros no MongoDB: {e}")
 
     
     def receber_obras_anunciadas(self):
@@ -176,3 +181,16 @@ class Atlas_DAO:
         except Exception as e:
             Mensagens.erro_no_banco_de_dados(f"Erro ao remover documentos com o título '{titulo_a_remover}': {e}")
             return f"Erro ao remover documentos com o título '{titulo_a_remover}': {e}"
+
+
+    def excluir_registros_de_obras_anunciadas(self):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+
+        try:
+            resultado = colecao.delete_many({})
+            self.logger_infos.info(f"Todos os documentos foram removidos com sucesso. Total de documentos removidos: {resultado.deleted_count}")
+            return f"Todos os documentos foram removidos com sucesso. Total de documentos removidos: {resultado.deleted_count}"
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao remover todos os documentos: {e}")
+            return f"Erro ao remover todos os documentos: {e}"

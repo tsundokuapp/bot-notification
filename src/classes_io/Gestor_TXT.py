@@ -34,13 +34,4 @@ class Gestor_TXT:
         with open(self.caminho_arquivo_data, 'w') as f:
             self.logger_infos.info("Data anterior atualizada.")
             f.write(str(data_anterior))
-
-    
-    def deleta_registro_capitulos(self):
-        pasta_relatorios = os.path.join('assets/','registro_capitulos/')
-        caminho_completo_obras = os.path.join(pasta_relatorios, 'obras.json')
-        if os.path.isfile(caminho_completo_obras):
-            self.logger_infos.info(caminho_completo_obras + " Excluido!")
-            os.remove(caminho_completo_obras)
-
     
