@@ -1,23 +1,24 @@
+import time
+import sys
+import logging
+
 from src.dao.Web_Screper_Site import Web_Screper_Site
 from src.dao.Conexao_Discord import Conexao_Discord
 from src.dao.Atlas_Dao import Atlas_DAO
 from src.dao.Conexao_Facebook import Conexao_Facebook
-from src.classes_io.Gestor_JSON import Gestor_JSON
 from src.controller.Controller_IO import Controller_IO
 from src.model.posts.Post_Discord import Post_Discord
 from src.model.posts.Post_Facebook import Post_Facebook
 
 from model.Mensagens import Mensagens
 
-import time
-import sys
-
 class Controller_Postagem:
 
     def execucao_principal():
 
-        gestor_json = Gestor_JSON()
         atlas_dao = Atlas_DAO()
+
+        logger_infos = logging.getLogger('logger_infos')
 
         def remove_obras_nao_registradas(lista_de_obras_recebidas, dados_unicos_obras):
             dados_unicos_obras = list(dados_unicos_obras)
@@ -50,9 +51,9 @@ class Controller_Postagem:
             return obras_filtradas
 
         def valida_lista_obras(lista_de_obras, lista_de_obras_contidas_no_registro):
-            print("\n*******************************************************")
+            logger_infos.info("\n*******************************************************")
             Mensagens.mensagem_lista_de_obras_para_verificar(lista_de_obras)
-            print(lista_de_obras_contidas_no_registro)
+            logger_infos.info(lista_de_obras_contidas_no_registro)
 
             for obra_atual in lista_de_obras:
                 for obra_contida_no_registro in lista_de_obras_contidas_no_registro:
@@ -61,7 +62,7 @@ class Controller_Postagem:
                         for capitulo_atual in obra_atual.lista_de_capitulos:
                             for capitulo_contido_no_registro in obra_contida_no_registro.lista_de_capitulos:
                                 if capitulo_atual.numero_capitulo == capitulo_contido_no_registro.numero_capitulo:
-                                    print(f"Removendo capitulo que já foi anunciado antes: {capitulo_atual}")
+                                    logger_infos.info(f"Removendo capitulo que já foi anunciado antes: {capitulo_atual}")
                                     break
                             else:
                                 capitulos_restantes.append(capitulo_atual)
@@ -71,7 +72,7 @@ class Controller_Postagem:
             lista_de_obras = [obra for obra in lista_de_obras if obra.lista_de_capitulos]
 
             Mensagens.mensagem_lista_de_obras_para_fazer_anuncio(lista_de_obras)
-            print("*******************************************************\n")
+            logger_infos.info("*******************************************************\n")
 
             return lista_de_obras
         
@@ -95,7 +96,6 @@ class Controller_Postagem:
                     Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)  
                 
                 except Exception as e:
-                    print("Erro ocorrido: ",e)
                     Mensagens.erro_no_codigo(e)
                     Mensagens.nao_foi_possivel_postar_discord()
                     Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
@@ -119,7 +119,7 @@ class Controller_Postagem:
      
         #Envia os dados para post
         else:
-            print("Nenhum registro encontrado, pulado para o anúncio!")
+            logger_infos.info("Nenhum registro encontrado, pulado para o anúncio!")
             Mensagens.conclusao_verificacao_postagem()
             
             lista_de_obras_atualizada = lista_de_obras
@@ -164,7 +164,7 @@ class Controller_Postagem:
 
         
         Mensagens.adicionando_anuncios_no_registro()
-        gestor_json.criar_json_com_lista_obras(lista_de_obras_contidas_no_registro)
+        atlas_dao.adicionar_obras_anunciadas(lista_de_obras_contidas_no_registro)
 
 
         

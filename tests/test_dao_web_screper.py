@@ -1,7 +1,8 @@
-from src.dao.Web_Screper_Site import Web_Screper_Site
-
 import locale
 import datetime
+import logging
+
+from src.dao.Web_Screper_Site import Web_Screper_Site
 
 class TestWebScreper:
     def test_valida_se_esta_recebendo_dados_obras(self):
@@ -19,7 +20,8 @@ class TestWebScreper:
         web_screper = Web_Screper_Site()
         datas = web_screper.receber_datas()
 
-        print(datas)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(datas)
 
         locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
 
@@ -27,7 +29,7 @@ class TestWebScreper:
             try:
                 # Tenta fazer o parse da data
                 dt = datetime.datetime.strptime(data, '%B %d, %Y')
-                print(f"A data {dt} está em um formato válido")
+                logger_infos.info(f"A data {dt} está em um formato válido")
 
             except ValueError:
                 assert False, f"A data {data} está em um formato inválido"

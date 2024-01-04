@@ -13,6 +13,7 @@ from src.dao.Atlas_Dao import Atlas_DAO
 from src.endpoint.pagination import Pagination
 from src.model.Mensagens import Mensagens
 from src.classes_io.Gestor_TXT import Gestor_TXT
+from src.model.Logger_Config import Logger_Config
 
 #Carregando as variaveis de ambiente
 load_dotenv()
@@ -21,6 +22,11 @@ canal = int(os.getenv('CANAL_TESTES'))
 
 MY_GUILD = discord.Object(id=697958499589554217)
 atlas_dao = Atlas_DAO()
+
+logger_config = Logger_Config()
+
+logger_infos = logging.getLogger('logger_infos')
+logger_erros = logging.getLogger('logger_erros')
 
 class MyClient(discord.Client):
     def __init__(self, *, intents: discord.Intents):
@@ -36,8 +42,8 @@ client = MyClient(intents=intents)
 
 @client.event
 async def on_ready():
-    print(f'Logged in as {client.user} (ID: {client.user.id})')
-    print('------')
+    logger_infos.info(f'Logged in as {client.user} (ID: {client.user.id})')
+    logger_infos.info('------')
 
 
 #Adicionar obra no banco

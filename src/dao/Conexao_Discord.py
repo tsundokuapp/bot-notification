@@ -1,11 +1,14 @@
-from dotenv import load_dotenv
 import discord
 import logging
 import os
 
+from dotenv import load_dotenv
+
 class Conexao_Discord:
 
     def postar_anuncio_discord(post_obra, e_um_teste):
+        logger_infos = logging.getLogger('logger_infos')
+
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -42,7 +45,7 @@ class Conexao_Discord:
             await channel.send(content=mensagem_cargos,embed=embed)
 
             await client.close()
-        print("Post no Discord realizado!")
+        logger_infos.info("Post no Discord realizado!")
         client.run(token)
 
 

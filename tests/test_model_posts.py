@@ -59,8 +59,9 @@ class TestModelPosts:
 
         post_discord = Post_Discord(obra, atlas_dao.receber_obras())
 
-        print("Post:")
-        print(post_discord.nome_no_anuncio, post_discord.cor_int, post_discord.imagem_obra)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("Post:")
+        logger_infos.info(post_discord.nome_no_anuncio, post_discord.cor_int, post_discord.imagem_obra)
 
         assert post_discord.nome_no_anuncio == "Jirai nandesuka? Chihara-san"
         assert post_discord.cor_int == int("0xFFFFFF", 16)

@@ -7,9 +7,3 @@ class TestDaoAtlasDao:
         atlas_dao = Atlas_DAO()
 
         assert atlas_dao.testar_conexao()
-
-    
-    def test_retorno_facebook_valido(self):
-        atlas_dao = Atlas_DAO()
-
-        print(atlas_dao.listar_obras_nao_permitidas_fb())

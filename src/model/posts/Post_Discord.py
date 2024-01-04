@@ -1,6 +1,11 @@
+import logging
+
 class Post_Discord:
 
     def __init__(self, obra, dados_unicos_obras):
+        self.logger_infos = logging.getLogger('logger_infos')
+        self.logger_erros = logging.getLogger('logger_erros')
+
         self.titulo_obra = obra.titulo_obra
         self.imagem_obra = obra.imagem_obra
         self.url_obra = obra.url_obra
@@ -18,11 +23,11 @@ class Post_Discord:
             self.cor_int = int(obra_encontrada['cor'], 16)
             self.imagem_obra = obra_encontrada['url_imagem']
         else:
-            print("Não foi possível encontrar obra nos registros.")
+            self.logger_erros.error("Não foi possível encontrar obra nos registros.")
     
     def retornar_mensagem_post(self, tag_aba):
         if len(self.lista_de_capitulos) == 1:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             capitulo = self.lista_de_capitulos[0]
 
             mensagem_final = f'''
@@ -43,7 +48,7 @@ class Post_Discord:
             '''
 
         elif len(self.lista_de_capitulos) == 2:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             segundo_capitulo = self.lista_de_capitulos[1]
@@ -67,7 +72,7 @@ class Post_Discord:
             '''
         
         elif len(self.lista_de_capitulos) == 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             segundo_capitulo = self.lista_de_capitulos[1]
@@ -93,7 +98,7 @@ class Post_Discord:
             '''
 
         elif len(self.lista_de_capitulos) > 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             ultimo_capitulo = self.lista_de_capitulos[-1]

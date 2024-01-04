@@ -1,13 +1,15 @@
 import os
 import requests
+import logging
 
-from src.classes_io.Gestor_JSON import Gestor_JSON
 from src.dao.Atlas_Dao import Atlas_DAO
 
 class Download_Imagens: 
 
     def fazer_download_imagens_obras():
         atlas_dao = Atlas_DAO()
+
+        logger_infos = logging.getLogger('logger_infos')
 
         # Obter os documentos como uma lista
         dados_lista = atlas_dao.receber_obras()
@@ -28,7 +30,7 @@ class Download_Imagens:
 
                 # Verifica se a imagem já existe
                 if os.path.exists(nome_arquivo):
-                    print(f'Imagem já existe: {nome_arquivo}')
+                    logger_infos.info(f'Imagem já existe: {nome_arquivo}')
                     continue  # Pula para a próxima iteração
 
                 response = requests.get(url_imagem)
@@ -37,6 +39,6 @@ class Download_Imagens:
                 with open(nome_arquivo, 'wb') as arquivo:
                     arquivo.write(response.content)
 
-                print(f'Imagem baixada: {nome_arquivo}')
+                logger_infos.info(f'Imagem baixada: {nome_arquivo}')
             else:
-                print('Documento sem chave ou URL de imagem')
+                logger_infos.info('Documento sem chave ou URL de imagem')
