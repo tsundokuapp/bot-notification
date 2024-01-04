@@ -43,6 +43,18 @@ class Atlas_DAO:
             except Exception as e:
                 print(f"Erro ao inserir dados na coleção 'dadosObras': {e}")
 
+    
+    def inserir_obra_nao_permitida_fb(self, dicionario_obra):
+        # Selecionar o banco de dados e a coleção
+        db = self.client.DadosPostagem  # Substitua pelo nome do seu banco de dados
+        colecao = db.obrasNaoPermitidasFB    # Substitua pelo nome da sua coleção
+
+        # Inserir os dados na coleção
+        try:
+            colecao.insert_one(dicionario_obra)
+        except Exception as e:
+            raise Exception(f'Erro ao inserir obra não permitida: {e}')
+
         
     def receber_obras(self):
         # Selecionar o banco de dados e a coleção
@@ -56,6 +68,20 @@ class Atlas_DAO:
         todos_documentos = colecao.find({}, projection=projection).sort('titulo', 1)
 
         return todos_documentos
+    
+
+    def listar_obras_nao_permitidas_fb(self):
+        db = self.client.DadosPostagem
+        colecao = db.obrasNaoPermitidasFB
+
+        projection = {'_id': 0}
+
+        todos_documentos = colecao.find({}, projection=projection).sort('titulo_obra', 1)
+   
+        # Convertendo o cursor em uma lista
+        lista_documentos = list(todos_documentos)
+
+        return lista_documentos
 
 
     def excluir_obra_por_titulo(self, titulo_a_remover):

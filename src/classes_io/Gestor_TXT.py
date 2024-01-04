@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 class Gestor_TXT:
 
     def __init__(self):
-        print("Construindo objeto ... {}".format(self))
         self.pasta_registro_horario = os.path.join('assets/', 'registro_horario/')
         self.caminho_arquivo_data = os.path.join(self.pasta_registro_horario, 'data_anterior.txt')
 

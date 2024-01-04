@@ -2,15 +2,15 @@ import os
 import requests
 
 from src.classes_io.Gestor_JSON import Gestor_JSON
+from src.dao.Atlas_Dao import Atlas_DAO
 
 class Download_Imagens: 
 
     def fazer_download_imagens_obras():
+        atlas_dao = Atlas_DAO()
 
-        gestor_json = Gestor_JSON()
-
-        # Percorrer o JSON e baixar as imagens
-        dados = gestor_json.retornar_dados_unicos_obras()
+        # Obter os documentos como uma lista
+        dados_lista = atlas_dao.receber_obras()
 
         diretorio_destino = 'assets/imagens'  # Diretório onde as imagens serão salvas
 
@@ -18,20 +18,25 @@ class Download_Imagens:
         if not os.path.exists(diretorio_destino):
             os.makedirs(diretorio_destino)
 
-        # Itera sobre os dados e baixa as imagens
-        for chave, valor in dados.items():
-            url_imagem = valor['url_imagem']
-            nome_arquivo = os.path.join(diretorio_destino, chave + '.png')  # Define o nome do arquivo usando a chave do JSON
+        # Itera sobre os documentos na lista
+        for documento in dados_lista:
+            chave = documento.get('titulo') 
+            url_imagem = documento.get('url_imagem')
 
-            # Verifica se a imagem já existe
-            if os.path.exists(nome_arquivo):
-                print(f'Imagem já existe: {nome_arquivo}')
-                continue  # Pula para a próxima iteração
+            if chave and url_imagem:
+                nome_arquivo = os.path.join(diretorio_destino, chave + '.png')
 
-            response = requests.get(url_imagem)
-            response.raise_for_status()  # Verifica se ocorreu algum erro durante a solicitação
+                # Verifica se a imagem já existe
+                if os.path.exists(nome_arquivo):
+                    print(f'Imagem já existe: {nome_arquivo}')
+                    continue  # Pula para a próxima iteração
 
-            with open(nome_arquivo, 'wb') as arquivo:
-                arquivo.write(response.content)
+                response = requests.get(url_imagem)
+                response.raise_for_status()  # Verifica se ocorreu algum erro durante a solicitação
 
-            print(f'Imagem baixada: {nome_arquivo}')
+                with open(nome_arquivo, 'wb') as arquivo:
+                    arquivo.write(response.content)
+
+                print(f'Imagem baixada: {nome_arquivo}')
+            else:
+                print('Documento sem chave ou URL de imagem')

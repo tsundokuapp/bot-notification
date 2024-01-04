@@ -9,15 +9,16 @@ class Gestor_JSON:
 
     def __init__(self):
         self.pasta_relatorios_capitulos = os.path.join('assets/',"registro_capitulos")
-        self.pasta_dados_obras = os.path.join('assets/', "dados_obras")
         self.validar_e_criar_pastas()
 
+
     def validar_e_criar_pastas(self):
-        pastas = [self.pasta_relatorios_capitulos, self.pasta_dados_obras]
+        pastas = [self.pasta_relatorios_capitulos]
 
         for pasta in pastas:
             if not os.path.exists(pasta):
                 os.makedirs(pasta)
+
 
     def criar_json_com_lista_obras(self, lista_de_obras):
         lista_de_dicionarios = []
@@ -88,40 +89,3 @@ class Gestor_JSON:
             lista_de_obras.append(obra)
         print("Registro Recebido!")
         return lista_de_obras
-
-
-    def retornar_dados_unicos_obras(self):
-        print(os.getcwd())
-
-        with open(f"{self.pasta_dados_obras}/dadosObras.json", "r") as arquivo_json:
-            dados_unicos_obras = json.load(arquivo_json)
-
-        return dados_unicos_obras
-
-    def receber_lista_obras_json_nao_permitidas_fb(self):
-        with open(f"{self.pasta_dados_obras}/obras_nao_permitidas.json", "r") as arquivo_json:
-            json_obras = arquivo_json.read()
-        
-        lista_de_obras = []
-
-        try:
-            lista_de_dicionarios = json.loads(json_obras)
-
-        except Exception as e:
-            print("Não existe arquivo para receber os dados.")
-            with open(f"{self.pasta_relatorios_capitulos}/obras.json", "w") as arquivo_json:
-                arquivo_json.write(json_obras)
-            return []
-            
-
-        for dicionario_obra in lista_de_dicionarios:
-            obra = Obra(
-                titulo_obra=dicionario_obra["titulo_obra"],
-                imagem_obra="",
-                url_obra=""
-            )
-            
-            lista_de_obras.append(obra)
-        print("Registro Recebido!")
-        return lista_de_obras
-        

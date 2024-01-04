@@ -63,12 +63,14 @@ class Mensagens:
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
+
     def mensagem_lista_de_obras_para_verificar(lista_de_obras):
         print(f"Lista de obras para verificar: {lista_de_obras}\n")
 
         mensagem_log = f"Lista de obras para verificar: {lista_de_obras}\n"
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
 
     def mensagem_lista_de_obras_para_fazer_anuncio(lista_de_obras):
         print(f"Lista de obras para fazer anúncio: {lista_de_obras}")
@@ -82,6 +84,14 @@ class Mensagens:
         print(f"Nenhum post de {titulo_obra}. \n")
 
         mensagem_log = f"Nenhum post de {titulo_obra}. \n"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    def mensagem_obra_tem_n_posts(titulo_obra, quantidade):
+        mensagem_log = f"{titulo_obra} tem {quantidade} capitulos postados no site. \n"
+
+        print(mensagem_log)
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
@@ -217,6 +227,15 @@ class Mensagens:
         mensagem_log = "**Registrando caps anúnciados para evitar repetição...**"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
+
+    def informa_obras_sem_registro(lista_de_obras):
+        mensagem_log = f"Existem obras dentre as postadas recentemente que não foram registradas.\n {lista_de_obras}\n \n CANCELANDO EXECUÇÃO... \n Use o comando /adicionar_obra para adicionar cada uma delas e depois use /forcar_postagem para a verificação ser feita novamente."
+
+        print(mensagem_log)
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+        time.sleep(10)
 
     
     def proxima_verificacao_capitulos():

@@ -40,6 +40,7 @@ class Web_Screper_Site:
             if len(lista_de_capitulos) == 0:
                 Mensagens.mensagem_nenhum_post_obra(titulo_obra)
             else:
+                Mensagens.mensagem_obra_tem_n_posts(titulo_obra,len(lista_de_capitulos))
                 obra.receber_lista_de_capitulos(lista_de_capitulos)
                 lista_de_obras.append(obra)
 
