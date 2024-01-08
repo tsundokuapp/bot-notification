@@ -1,22 +1,33 @@
+import logging
+
 class Post_Discord:
 
     def __init__(self, obra, dados_unicos_obras):
+        self.logger_infos = logging.getLogger('logger_infos')
+        self.logger_erros = logging.getLogger('logger_erros')
+
         self.titulo_obra = obra.titulo_obra
         self.imagem_obra = obra.imagem_obra
         self.url_obra = obra.url_obra
 
         self.lista_de_capitulos = obra.lista_de_capitulos
 
-        self.nome_no_anuncio = dados_unicos_obras[self.titulo_obra]['cargo_discord']
-        self.cor_int = int(dados_unicos_obras[self.titulo_obra]['cor'], 16)
-        self.imagem_obra = dados_unicos_obras[self.titulo_obra]['url_imagem']
+        obra_encontrada = None
+        for obra in dados_unicos_obras:
+            if obra.get('titulo') == self.titulo_obra:
+                obra_encontrada = obra
+                break
 
-        print(f"Construindo Post {self.titulo_obra }...")
-
+        if obra_encontrada:
+            self.nome_no_anuncio = obra_encontrada['cargo_discord']
+            self.cor_int = int(obra_encontrada['cor'], 16)
+            self.imagem_obra = obra_encontrada['url_imagem']
+        else:
+            self.logger_erros.error("Não foi possível encontrar obra nos registros.")
     
     def retornar_mensagem_post(self, tag_aba):
         if len(self.lista_de_capitulos) == 1:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             capitulo = self.lista_de_capitulos[0]
 
             mensagem_final = f'''
@@ -37,7 +48,7 @@ class Post_Discord:
             '''
 
         elif len(self.lista_de_capitulos) == 2:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             segundo_capitulo = self.lista_de_capitulos[1]
@@ -61,7 +72,7 @@ class Post_Discord:
             '''
         
         elif len(self.lista_de_capitulos) == 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             segundo_capitulo = self.lista_de_capitulos[1]
@@ -87,7 +98,7 @@ class Post_Discord:
             '''
 
         elif len(self.lista_de_capitulos) > 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             ultimo_capitulo = self.lista_de_capitulos[-1]

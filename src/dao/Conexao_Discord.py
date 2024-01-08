@@ -1,10 +1,14 @@
-from dotenv import load_dotenv
 import discord
+import logging
 import os
+
+from dotenv import load_dotenv
 
 class Conexao_Discord:
 
     def postar_anuncio_discord(post_obra, e_um_teste):
+        logger_infos = logging.getLogger('logger_infos')
+
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -15,7 +19,7 @@ class Conexao_Discord:
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         if e_um_teste:
-            canal = os.getenv('CANAL_TESTES')
+            canal = int(os.getenv('CANAL_TESTES'))
 
         @client.event
         async def on_ready():
@@ -29,10 +33,9 @@ class Conexao_Discord:
 
             cargo = discord.utils.get(guild.roles, name=post_obra.nome_no_anuncio)
             
-            
             mensagem_cargos = f'''
             {cargo.mention} {cargo_todas_obras.mention}
-            ''' 
+            '''
 
             embed = discord.Embed()
             embed.colour = post_obra.cor_int
@@ -42,11 +45,14 @@ class Conexao_Discord:
             await channel.send(content=mensagem_cargos,embed=embed)
 
             await client.close()
-        print("Post no Discord realizado!")
+        logger_infos.info("Post no Discord realizado!")
         client.run(token)
 
 
     def mensagem_de_log_discord(mensagem_log):
+
+        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
         intents = discord.Intents.default()
         client = discord.Client(intents=intents)
 
@@ -62,4 +68,4 @@ class Conexao_Discord:
             await channel.send(mensagem_log)  # Envia a mensagem sem um embed
             await client.close()
 
-        client.run(token)
+        client.run(token, log_handler=handler, log_level=logging.WARNING, root_logger=False)

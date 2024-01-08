@@ -1,6 +1,10 @@
+import logging
+
 class Post_Facebook:
 
     def __init__(self, obra, dados_unicos_obras):
+        self.logger_infos = logging.getLogger('logger_infos')
+
         self.titulo_obra = obra.titulo_obra
         self.imagem_obra = obra.imagem_obra
         self.url_obra = obra.url_obra
@@ -9,13 +13,13 @@ class Post_Facebook:
 
         self.imagem_obra = dados_unicos_obras[self.titulo_obra]['url_imagem']
 
-        print(f"Construindo Post {self.titulo_obra }...")
+        self.logger_infos.info(f"Construindo Post {self.titulo_obra }...")
 
     
     def retornar_mensagem_post(self):
         if len(self.lista_de_capitulos) == 1:
 
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             capitulo = self.lista_de_capitulos[0]
 
             mensagem_facebook = f'''
@@ -35,7 +39,7 @@ class Post_Facebook:
             '''
 
         elif len(self.lista_de_capitulos) == 2:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[1]
             segundo_capitulo = self.lista_de_capitulos[0]
@@ -58,7 +62,7 @@ class Post_Facebook:
             '''
         
         elif len(self.lista_de_capitulos) == 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[2]
             segundo_capitulo = self.lista_de_capitulos[1]
@@ -83,7 +87,7 @@ class Post_Facebook:
             '''
 
         elif len(self.lista_de_capitulos) > 3:
-            print("postando: " + str(self.lista_de_capitulos))
+            self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
             
             primeiro_capitulo = self.lista_de_capitulos[0]
             ultimo_capitulo = self.lista_de_capitulos[-1]

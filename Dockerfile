@@ -2,6 +2,7 @@
 FROM --platform=linux/amd64 python:3.10-alpine AS buid
 
 WORKDIR /home/project
+ENV PYTHONPATH=/home/project
 
 # Esta linha não é necessária para a release
 #COPY .env .env
@@ -9,6 +10,9 @@ WORKDIR /home/project
 COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
+
+RUN mkdir /temp
+COPY assets /temp
 
 COPY . .
 
@@ -26,3 +30,5 @@ RUN echo "0 12 * * * cd /home/project && /usr/local/bin/python3 /home/project/sr
 RUN echo "0 16-22/2 * * * cd /home/project && /usr/local/bin/python3 /home/project/src/Main.py" >> /var/spool/cron/crontabs/root
 
 CMD crond -f
+
+ENTRYPOINT ["/home/project/scripts/docker-entrypoint.sh"]

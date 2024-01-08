@@ -1,230 +1,307 @@
-from dao.Conexao_Discord import Conexao_Discord
+import time
+import logging
 
 from datetime import datetime, timedelta
-import time
+
+from src.dao.Conexao_Discord import Conexao_Discord
 
 class Mensagens:
+    #Mensagens de indicação da execução de postagem
+    @staticmethod
     def mensagem_inicio():
         time.sleep(5)
-        print("*******************************************************")
-        print("                Iniciando o programa...                ")
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("                Iniciando o programa...                ")
+        logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Iniciando o programa...**"
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
-    def erro_no_codigo(mensagem_erro_exception):
-        time.sleep(5)
-        print("Erro ocorrido: ",mensagem_erro_exception)
 
-        mensagem_log = ("Erro ocorrido: ",mensagem_erro_exception)
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def mensagem_nao_foi_possivel_postar_obra(titulo_obra):
-        mensagem_log = f"Não foi possível fazer a postagem de {titulo_obra}, verifique se as informações dela foram cadastradas corretamente no JSON"
-        print(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def mensagem_obra_nao_tem_nenhum_capitulo(titulo_obra):
-        mensagem_log = f"A seguinte obra não tem nenhum capitulo:  {titulo_obra}, ela será pulada!"
-        print(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def nao_existe_registro():
-        time.sleep(5)
-        mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
-        print(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-    
-    def fora_do_horario_de_postagem():
-        time.sleep(5)
-        mensagem_log = "Fora do horario de postagem, será verificado as 14H, 16H, 18H e 20H!"
-        print(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def fora_do_horario_de_postagem_dois():
-        time.sleep(5)
-        mensagem_log = "Já bati meu ponto patrão, agora só amanhã!"
-        print(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-        
-
-    def mensagem_tempo_desde_exclusao(diferenca_dias):
-        print("Tempo desde a última exclusão: " , diferenca_dias, " dias\n")
-
-        mensagem_log = "Tempo desde a última exclusão: " , diferenca_dias, " dias\n"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-    def mensagem_lista_de_obras_para_verificar(lista_de_obras):
-        print(f"Lista de obras para verificar: {lista_de_obras}\n")
-
-        mensagem_log = f"Lista de obras para verificar: {lista_de_obras}\n"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-    def mensagem_lista_de_obras_para_fazer_anuncio(lista_de_obras):
-        print(f"Lista de obras para fazer anúncio: {lista_de_obras}")
-
-        mensagem_log = f"Lista de obras para fazer anúncio: {lista_de_obras}"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def mensagem_nenhum_post_obra(titulo_obra):
-        print(f"Nenhum post de {titulo_obra}. \n")
-
-        mensagem_log = f"Nenhum post de {titulo_obra}. \n"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def mensagem_excluindo_relatorios_capitulos():
-        time.sleep(5)
-        print("*******************************************************")
-        print("        Excluindo relatórios dos capítulos...          ")
-        print("*******************************************************\n")
-
-        mensagem_log = "**Excluindo relatórios dos capítulos...**"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-
-    def inicializando_validacao_arquivos_antigos():
-        time.sleep(5)
-        print("*******************************************************")
-        print("       Validando registro de arquivos antigos...       ")
-        print("*******************************************************\n")
-
-        mensagem_log = "**Validando registro de arquivos antigos...**"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-    
-    def inicializando_verificacao_postagem():
-        time.sleep(5)
-        print("*******************************************************")
-        print("      Comparando lista recebida com do registro...     ")
-        print("*******************************************************\n")
-
-        mensagem_log = "**Comparando lista recebida com do registro...**"
-
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
-    
+    @staticmethod
     def atualizando_diretorio_imagens():
         time.sleep(5)
-        print("*******************************************************")
-        print("      Atualizando Diretorio de Imagens...     ")
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("      Atualizando Diretorio de Imagens...     ")
+        logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Atualizando Diretorio de Imagens...**"
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
+    @staticmethod
+    def recebendo_capitulos_mensagem():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("         Recebendo capitulos dos ultimos dias...         ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Recebendo Capitulos dos ultimos dias...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    @staticmethod
+    def inicializando_validacao_arquivos_antigos():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("       Validando registro de arquivos antigos...       ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Validando registro de arquivos antigos...**"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    @staticmethod
+    def inicializando_verificacao_postagem():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("      Comparando lista recebida com do registro...     ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Comparando lista recebida com do registro...**"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    @staticmethod    
+    def conclusao_verificacao_postagem():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("      Comparação concluída, iniciando postagem...      ")
+        logger_infos.info("*******************************************************\n")
+        
+        mensagem_log = "**Comparação concluída, iniciando postagem...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
+    def post_redes():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("            Iniciando anúncio nas redes...              ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Iniciando anúncio nas redes...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
+    def post_discord():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("            Fazendo anúncio no Discord...              ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Fazendo anúncio no Discord...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    @staticmethod
+    def adicionando_anuncios_no_registro():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("    Registrando Caps Anúnciados para ev.Repetição...     ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Registrando caps anúnciados para evitar repetição...**"
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
+    def mensagem_excluindo_relatorios_capitulos():
+        time.sleep(5)
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("        Excluindo relatórios dos capítulos...          ")
+        logger_infos.info("*******************************************************\n")
+
+        mensagem_log = "**Excluindo relatórios dos capítulos...**"
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
     def nao_foi_possivel_postar_discord():
         time.sleep(5)
-        print("*******************************************************")
-        print("      Não foi possível fazer o post no Discord...      ")
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("      Não foi possível fazer o post no Discord...      ")
+        logger_infos.info("*******************************************************\n")
 
         mensagem_log = "Não foi possível fazer o post no Discord... Tentaremos novamente mais tarde"
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
+    @staticmethod
     def nao_foi_possivel_postar_facebook():
         time.sleep(5)
-        print("*******************************************************")
-        print("      Não foi possível fazer o post no Facebook...      ")
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info("*******************************************************")
+        logger_infos.info("      Não foi possível fazer o post no Facebook...      ")
+        logger_infos.info("*******************************************************\n")
 
         mensagem_log = "Não foi possível fazer o post no Facebook... Tentaremos novamente mais tarde"
 
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
-    
-    def conclusao_verificacao_postagem():
+    #Mensagens de aviso quanto a execucão principal
+    @staticmethod
+    def mensagem_obra_nao_tem_nenhum_capitulo(titulo_obra):
+        mensagem_log = f"A seguinte obra não tem nenhum capitulo:  {titulo_obra}, ela será pulada!"
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
+    def nao_existe_registro():
         time.sleep(5)
-        print("*******************************************************")
-        print("      Comparação concluída, iniciando postagem...      ")
-        print("*******************************************************\n")
+        mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
         
-        mensagem_log = "**Comparação concluída, iniciando postagem...**"
+
+    @staticmethod
+    def mensagem_tempo_desde_exclusao(diferenca_dias):
+        mensagem_log = "Tempo desde a última exclusão: " , diferenca_dias, " dias\n"
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
-    def post_discord():
-        time.sleep(5)
-        print("*******************************************************")
-        print("            Fazendo anúncio no Discord...              ")
-        print("*******************************************************\n")
+    @staticmethod
+    def mensagem_lista_de_obras_para_verificar(lista_de_obras):
+        mensagem_log = f"Lista de obras para verificar: {lista_de_obras}\n"
 
-        mensagem_log = "**Fazendo anúncio no Discord...**"
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
-    def post_redes():
-        time.sleep(5)
-        print("*******************************************************")
-        print("            Iniciando anúncio nas redes...              ")
-        print("*******************************************************\n")
+    @staticmethod
+    def mensagem_lista_de_obras_para_fazer_anuncio(lista_de_obras):
+        mensagem_log = f"Lista de obras para fazer anúncio: {lista_de_obras}"
 
-        mensagem_log = "**Iniciando anúncio nas redes...**"
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
+    @staticmethod
+    def mensagem_nenhum_post_obra(titulo_obra):
+        mensagem_log = f"Nenhum post de {titulo_obra}. \n"
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    @staticmethod
+    def mensagem_obra_tem_n_posts(titulo_obra, quantidade):
+        mensagem_log = f"{titulo_obra} tem {quantidade} capitulos postados no site. \n"
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
     def mensagen_realizando_post_obra(titulo_obra):
-        print(f"Realizando anúncio de {titulo_obra}")
         mensagem_log = f"Realizando anúncio de {titulo_obra}"
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+        
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
+
+    @staticmethod
     def post_facebook(titulo_obra):
         time.sleep(5)
-        print("            Fazendo anúncio no Facebook...             ")
         mensagem_log = f"**Fazendo anúncio de {titulo_obra} no Facebook...**"
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+        
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
 
-    
-    def recebendo_capitulos_mensagem():
-        time.sleep(5)
-        print("*******************************************************")
-        print("         Recebendo capitulos dos ultimos dias...         ")
-        print("*******************************************************\n")
+    @staticmethod
+    def informa_obras_sem_registro(lista_de_obras):
+        mensagem_log = f"Existem obras dentre as postadas recentemente que não foram registradas.\n {lista_de_obras}\n \n CANCELANDO EXECUÇÃO... \n Use o comando /adicionar_obra para adicionar cada uma delas e depois use /forcar_postagem para a verificação ser feita novamente."
 
-        mensagem_log = "**Recebendo Capitulos dos ultimos dias...**"
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)
 
-    
-    def adicionando_anuncios_no_registro():
-        time.sleep(5)
-        print("*******************************************************")
-        print("    Registrando Caps Anúnciados para ev.Repetição...     ")
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
 
-        mensagem_log = "**Registrando caps anúnciados para evitar repetição...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
-
+        time.sleep(10)
 
     
+    @staticmethod
     def proxima_verificacao_capitulos():
         time.sleep(5)
         now = datetime.now()
 
-        # 7200 seconds => 2 hours
-        next_execution = now + timedelta(seconds=7200)
+        mensagem_log = "Envio concluído, a guarde a próxima verificação. São feitas 12h, 16h, 18h, 20h e 22h."
 
-        print("\nA próxima verificação dos capítulos será {}:{}!\n".format(next_execution.hour, next_execution.minute))
-        print("*******************************************************\n")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
 
-        mensagem_log = "\n**A próxima verificação dos capítulos será {}:{}!**\n".format(next_execution.hour, next_execution.minute)
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    #Mensagens de erros
+    @staticmethod
+    def erro_no_codigo(mensagem_erro_exception):
+        time.sleep(5)
+
+        mensagem_log = "Ocorreu uma exceção não catalogada: %s" % mensagem_erro_exception
+
+        logger_erros = logging.getLogger('logger_erros')
+        logger_erros.error(mensagem_log)
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+    
+    #Mensagens de erros
+    @staticmethod
+    def erro_no_banco_de_dados(mensagem_erro_exception):
+        time.sleep(5)
+
+        mensagem_log = "Não foi possível realizar a operação no banco de dados: %s" % mensagem_erro_exception
+
+        logger_erros = logging.getLogger('logger_erros')
+        logger_erros.error(mensagem_log)
+
+        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+
+
+    @staticmethod
+    def mensagem_nao_foi_possivel_postar_obra(titulo_obra):
+        mensagem_log = f"Não foi possível fazer a postagem de {titulo_obra}, verifique se as informações dela foram cadastradas corretamente no JSON"
+        
+        logger_erros = logging.getLogger('logger_erros')
+        logger_erros.error(mensagem_log)
+
         Conexao_Discord.mensagem_de_log_discord(mensagem_log)

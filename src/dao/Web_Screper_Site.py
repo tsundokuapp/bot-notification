@@ -1,12 +1,14 @@
-from model.Capitulo import Capitulo
-from model.Obra import Obra
-from model.Mensagens import Mensagens
-from classes_io.Gestor_TXT import Gestor_TXT
+import locale
+import logging
+import requests
 
 from datetime import datetime, timedelta
-import requests
 from bs4 import BeautifulSoup
-import locale
+
+from src.model.Capitulo import Capitulo
+from src.model.Obra import Obra
+from src.model.Mensagens import Mensagens
+from src.classes_io.Gestor_TXT import Gestor_TXT
 
 # Definir o locale como "pt_BR.UTF-8"
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -15,7 +17,8 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 class Web_Screper_Site:
 
     def __init__(self):
-        print(" ")
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(" Iniciando Web Screper ")
 
 
     def recebe_capitulos_diarios(self):
@@ -40,6 +43,7 @@ class Web_Screper_Site:
             if len(lista_de_capitulos) == 0:
                 Mensagens.mensagem_nenhum_post_obra(titulo_obra)
             else:
+                Mensagens.mensagem_obra_tem_n_posts(titulo_obra,len(lista_de_capitulos))
                 obra.receber_lista_de_capitulos(lista_de_capitulos)
                 lista_de_obras.append(obra)
 
