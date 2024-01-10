@@ -2,11 +2,11 @@ import locale
 import datetime
 import logging
 
-from src.dao.Web_Screper_Site import Web_Screper_Site
+from src.dao.web_screper_site import WebScreperSite
 
 class TestWebScreper:
     def test_valida_se_esta_recebendo_dados_obras(self):
-        web_screper = Web_Screper_Site()
+        web_screper = WebScreperSite()
         dados_obra = web_screper.receber_conteudo(5)
 
         assert len(dados_obra[0]) > 0
@@ -17,7 +17,7 @@ class TestWebScreper:
 
 
     def test_verifica_se_data_esta_em_portugues(self):
-        web_screper = Web_Screper_Site()
+        web_screper = WebScreperSite()
         datas = web_screper.receber_datas()
 
         logger_infos = logging.getLogger('logger_infos')

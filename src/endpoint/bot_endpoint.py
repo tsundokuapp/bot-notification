@@ -9,11 +9,10 @@ from discord import app_commands
 from dotenv import load_dotenv
 from typing import Optional
 
-from src.dao.Atlas_Dao import Atlas_DAO
+from src.dao.atlas_dao import AtlasDAO
 from src.endpoint.pagination import Pagination
-from src.model.Mensagens import Mensagens
-from src.classes_io.Gestor_TXT import Gestor_TXT
-from src.model.Logger_Config import Logger_Config
+from src.classes_io.gestor_txt import GestorTXT
+from src.model.logger_config import LoggerConfig
 
 #Carregando as variaveis de ambiente
 load_dotenv()
@@ -21,9 +20,9 @@ token = os.getenv('API_KEY')
 canal = int(os.getenv('CANAL_TESTES'))
 
 MY_GUILD = discord.Object(id=697958499589554217)
-atlas_dao = Atlas_DAO()
+atlas_dao = AtlasDAO()
 
-logger_config = Logger_Config()
+logger_config = LoggerConfig()
 
 logger_infos = logging.getLogger('logger_infos')
 logger_erros = logging.getLogger('logger_erros')
@@ -169,7 +168,7 @@ async def forcar_postagem(interaction: discord.Interaction):
 
 
 #Forçar exclusão dos registros e atualizar data
-gestor_TXT = Gestor_TXT()
+gestor_TXT = GestorTXT()
 
 @client.tree.command()
 async def excluir_registros(interaction: discord.Interaction):

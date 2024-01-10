@@ -1,14 +1,14 @@
 import logging
 
-from src.model.Obra import Obra
-from src.model.Capitulo import Capitulo
-from src.model.posts.Post_Discord import Post_Discord
-from src.dao.Atlas_Dao import Atlas_DAO
+from src.model.obra import Obra
+from src.model.capitulo import Capitulo
+from src.model.posts.post_discord import PostDiscord
+from src.dao.atlas_dao import AtlasDAO
 
 class TestModelPosts:
 
     def test_instanciacao(self):
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
 
         #Instanciando o objeto da obra e adicionando capitulos
         obra = Obra("Jirai Nandesuka? Chihara-san", "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg", "https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/")
@@ -18,7 +18,7 @@ class TestModelPosts:
         ]
         obra.receber_lista_de_capitulos(lista_capitulos)
 
-        post_discord = Post_Discord(obra, atlas_dao.receber_obras())
+        post_discord = PostDiscord(obra, atlas_dao.receber_obras())
 
         assert post_discord.titulo_obra == obra.titulo_obra
         assert post_discord.url_obra == obra.url_obra
@@ -28,7 +28,7 @@ class TestModelPosts:
 
 
     def test_tipos_sao_validos(self):
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
 
         #Instanciando o objeto da obra e adicionando capitulos
         obra = Obra("Jirai Nandesuka? Chihara-san", "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg", "https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/")
@@ -38,7 +38,7 @@ class TestModelPosts:
         ]
         obra.receber_lista_de_capitulos(lista_capitulos)
 
-        post_discord = Post_Discord(obra, atlas_dao.receber_obras())
+        post_discord = PostDiscord(obra, atlas_dao.receber_obras())
 
         assert isinstance(post_discord.titulo_obra, str)
         assert isinstance(post_discord.url_obra, str)
@@ -49,7 +49,7 @@ class TestModelPosts:
 
     def test_consegue_encontrar_dados_obra_no_registro(self):
         #Instancia da classe de conexão com banco de dados
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
 
         #Instanciando o objeto da obra e adicionando capitulos
         obra = Obra("Jirai Nandesuka? Chihara-san", "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg", "https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/")
@@ -59,7 +59,7 @@ class TestModelPosts:
         ]
         obra.receber_lista_de_capitulos(lista_capitulos)
 
-        post_discord = Post_Discord(obra, atlas_dao.receber_obras())
+        post_discord = PostDiscord(obra, atlas_dao.receber_obras())
 
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info("Post:")

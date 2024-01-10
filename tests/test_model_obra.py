@@ -1,6 +1,5 @@
-import pytest
-from src.model.Obra import Obra
-from src.model.Capitulo import Capitulo
+from src.model.obra import Obra
+from src.model.capitulo import Capitulo
 
 class TestModelObra: 
     def test_inicializacao(self):

@@ -3,27 +3,26 @@
 import datetime
 import logging
 
-from src.classes_io.Gestor_TXT import Gestor_TXT
-from src.classes_io.Download_Imagens import Download_Imagens
-from src.model.Mensagens import Mensagens
-from src.model.Logger_Config import Logger_Config
-from src.dao.Atlas_Dao import Atlas_DAO
-from src.dao.Web_Screper_Site import Web_Screper_Site
-from src.controller.Controller_Postagem import Controller_Postagem
+from src.classes_io.gestor_txt import GestorTXT
+from src.classes_io.download_imagens import DownloadImagens
+from src.model.mensagens import Mensagens
+from src.model.logger_config import LoggerConfig
+from src.dao.atlas_dao import AtlasDAO
+from src.controller.controller_postagem import ControllerPostagem
 
 if __name__ == "__main__":
 
-    logger_config = Logger_Config()
-    atlas_dao = Atlas_DAO()
+    logger_config = LoggerConfig()
+    atlas_dao = AtlasDAO()
 
     try:
-        gestor_TXT = Gestor_TXT()
+        gestor_TXT = GestorTXT()
         data_anterior = gestor_TXT.get_data_anterior()
 
         Mensagens.mensagem_inicio()
 
         Mensagens.atualizando_diretorio_imagens()
-        Download_Imagens.fazer_download_imagens_obras()
+        DownloadImagens.fazer_download_imagens_obras()
 
         data_atual = datetime.datetime.now().date()
         Mensagens.inicializando_validacao_arquivos_antigos()
@@ -34,13 +33,13 @@ if __name__ == "__main__":
 
         if diferenca_dias >= 30 or diferenca_dias <= -30:
             Mensagens.atualizando_diretorio_imagens()
-            Download_Imagens.fazer_download_imagens_obras()
+            DownloadImagens.fazer_download_imagens_obras()
             Mensagens.mensagem_excluindo_relatorios_capitulos()
             atlas_dao.excluir_registros_de_obras_anunciadas()
             data_anterior = data_atual
             gestor_TXT.atualiza_data_anterior(data_anterior)
 
-        Controller_Postagem.execucao_principal()
+        ControllerPostagem.execucao_principal()
         Mensagens.proxima_verificacao_capitulos()
 
     except Exception as e:

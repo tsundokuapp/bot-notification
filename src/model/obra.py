@@ -1,4 +1,4 @@
-from src.model.Capitulo import Capitulo
+from src.model.capitulo import Capitulo
 
 class Obra:
 

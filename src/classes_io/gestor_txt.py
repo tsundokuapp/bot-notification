@@ -1,9 +1,9 @@
 import os
 import logging
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
-class Gestor_TXT:
+class GestorTXT:
 
     def __init__(self):
         self.pasta_registro_horario = os.path.join('assets/', 'registro_horario/')

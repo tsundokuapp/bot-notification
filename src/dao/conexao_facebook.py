@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import facebook
 
-class Conexao_Facebook:
+class ConexaoFacebook:
 
     def postar_anuncio_facebook(post_obra):
         def receber_caminho_imagem(titulo_obra):

@@ -5,16 +5,16 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-from src.model.Capitulo import Capitulo
-from src.model.Obra import Obra
-from src.model.Mensagens import Mensagens
-from src.classes_io.Gestor_TXT import Gestor_TXT
+from src.model.capitulo import Capitulo
+from src.model.obra import Obra
+from src.model.mensagens import Mensagens
+from src.classes_io.gestor_txt import GestorTXT
 
 # Definir o locale como "pt_BR.UTF-8"
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 
-class Web_Screper_Site:
+class WebScreperSite:
 
     def __init__(self):
         logger_infos = logging.getLogger('logger_infos')
@@ -73,7 +73,7 @@ class Web_Screper_Site:
 
 
     def receber_datas(self):
-        gestor_TXT = Gestor_TXT()
+        gestor_TXT = GestorTXT()
         data_anterior = gestor_TXT.get_data_anterior()
 
         data_atual = datetime.now()

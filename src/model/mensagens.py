@@ -1,9 +1,9 @@
 import time
 import logging
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from src.dao.Conexao_Discord import Conexao_Discord
+from src.dao.conexao_discord import ConexaoDiscord
 
 class Mensagens:
     #Mensagens de indicação da execução de postagem
@@ -17,7 +17,7 @@ class Mensagens:
 
         mensagem_log = "**Iniciando o programa...**"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -30,7 +30,7 @@ class Mensagens:
 
         mensagem_log = "**Atualizando Diretorio de Imagens...**"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -42,7 +42,7 @@ class Mensagens:
         logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Recebendo Capitulos dos ultimos dias...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     @staticmethod
@@ -55,7 +55,7 @@ class Mensagens:
 
         mensagem_log = "**Validando registro de arquivos antigos...**"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     @staticmethod
@@ -68,7 +68,7 @@ class Mensagens:
 
         mensagem_log = "**Comparando lista recebida com do registro...**"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     @staticmethod    
@@ -80,7 +80,7 @@ class Mensagens:
         logger_infos.info("*******************************************************\n")
         
         mensagem_log = "**Comparação concluída, iniciando postagem...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -92,7 +92,7 @@ class Mensagens:
         logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Iniciando anúncio nas redes...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -104,7 +104,7 @@ class Mensagens:
         logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Fazendo anúncio no Discord...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     @staticmethod
@@ -116,7 +116,7 @@ class Mensagens:
         logger_infos.info("*******************************************************\n")
 
         mensagem_log = "**Registrando caps anúnciados para evitar repetição...**"
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -129,7 +129,7 @@ class Mensagens:
 
         mensagem_log = "**Excluindo relatórios dos capítulos...**"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -142,7 +142,7 @@ class Mensagens:
 
         mensagem_log = "Não foi possível fazer o post no Discord... Tentaremos novamente mais tarde"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -155,7 +155,7 @@ class Mensagens:
 
         mensagem_log = "Não foi possível fazer o post no Facebook... Tentaremos novamente mais tarde"
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     #Mensagens de aviso quanto a execucão principal
     @staticmethod
@@ -163,7 +163,7 @@ class Mensagens:
         mensagem_log = f"A seguinte obra não tem nenhum capitulo:  {titulo_obra}, ela será pulada!"
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -172,7 +172,7 @@ class Mensagens:
         mensagem_log = "O arquivo não existe, deve ter sido excluído recentemente. Criando arquivo vazio..."
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
         
 
     @staticmethod
@@ -182,7 +182,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -192,7 +192,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -202,7 +202,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -212,7 +212,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     @staticmethod
@@ -222,7 +222,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -232,7 +232,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
         
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -243,14 +243,14 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
         
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
     def informa_obras_sem_registro(lista_de_obras):
         mensagem_log = f"Existem obras dentre as postadas recentemente que não foram registradas.\n {lista_de_obras}\n \n CANCELANDO EXECUÇÃO... \n Use o comando /adicionar_obra para adicionar cada uma delas e depois use /forcar_postagem para a verificação ser feita novamente."
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
@@ -268,7 +268,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     #Mensagens de erros
@@ -281,7 +281,7 @@ class Mensagens:
         logger_erros = logging.getLogger('logger_erros')
         logger_erros.error(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
     
     #Mensagens de erros
@@ -294,7 +294,7 @@ class Mensagens:
         logger_erros = logging.getLogger('logger_erros')
         logger_erros.error(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
     @staticmethod
@@ -304,4 +304,4 @@ class Mensagens:
         logger_erros = logging.getLogger('logger_erros')
         logger_erros.error(mensagem_log)
 
-        Conexao_Discord.mensagem_de_log_discord(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)

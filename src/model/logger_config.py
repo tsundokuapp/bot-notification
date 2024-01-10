@@ -2,7 +2,7 @@ import logging
 import os
 import datetime
 
-class Logger_Config:
+class LoggerConfig:
     def __init__(self):
         self.pasta_logs = os.path.join('assets/', "logs/")
         self.validar_e_criar_pastas()
