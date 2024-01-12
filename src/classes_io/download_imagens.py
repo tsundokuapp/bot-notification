@@ -2,12 +2,12 @@ import os
 import requests
 import logging
 
-from src.dao.Atlas_Dao import Atlas_DAO
+from src.dao.atlas_dao import AtlasDAO
 
-class Download_Imagens: 
+class DownloadImagens: 
 
     def fazer_download_imagens_obras():
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
 
         logger_infos = logging.getLogger('logger_infos')
 

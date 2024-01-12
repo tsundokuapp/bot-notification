@@ -1,6 +1,6 @@
 import logging
 
-class Post_Facebook:
+class PostFacebook:
 
     def __init__(self, obra, dados_unicos_obras):
         self.logger_infos = logging.getLogger('logger_infos')

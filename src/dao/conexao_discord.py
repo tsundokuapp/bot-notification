@@ -4,7 +4,7 @@ import os
 
 from dotenv import load_dotenv
 
-class Conexao_Discord:
+class ConexaoDiscord:
 
     def postar_anuncio_discord(post_obra, e_um_teste):
         logger_infos = logging.getLogger('logger_infos')

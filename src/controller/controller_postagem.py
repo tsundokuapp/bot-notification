@@ -1,22 +1,21 @@
 import time
-import sys
 import logging
 
-from src.dao.Web_Screper_Site import Web_Screper_Site
-from src.dao.Conexao_Discord import Conexao_Discord
-from src.dao.Atlas_Dao import Atlas_DAO
-from src.dao.Conexao_Facebook import Conexao_Facebook
-from src.controller.Controller_IO import Controller_IO
-from src.model.posts.Post_Discord import Post_Discord
-from src.model.posts.Post_Facebook import Post_Facebook
+from src.dao.web_screper_site import WebScreperSite
+from src.dao.conexao_discord import ConexaoDiscord
+from src.dao.atlas_dao import AtlasDAO
+#from src.dao.conexao_facebook import ConexaoFacebook
+from src.controller.controller_io import ControllerIO
+from src.model.posts.post_discord import PostDiscord
+from src.model.posts.post_facebook import PostFacebook
 
 from model.Mensagens import Mensagens
 
-class Controller_Postagem:
+class ControllerPostagem:
 
     def execucao_principal():
 
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
 
         logger_infos = logging.getLogger('logger_infos')
 
@@ -76,10 +75,10 @@ class Controller_Postagem:
 
             return lista_de_obras
         
-        web_screper = Web_Screper_Site()
+        web_screper = WebScreperSite()
         lista_de_obras = remove_obras_nao_registradas(web_screper.recebe_capitulos_diarios(), atlas_dao.receber_obras())
 
-        lista_de_obras_contidas_no_registro = Controller_IO.valida_existencia_de_anuncios_anteriores()
+        lista_de_obras_contidas_no_registro = ControllerIO.valida_existencia_de_anuncios_anteriores()
         existe_registro = len(lista_de_obras_contidas_no_registro) != 0
 
         #Faz validação dos capítulos e depois envia os dados para post
@@ -91,9 +90,9 @@ class Controller_Postagem:
             for obra in lista_de_obras_atualizada:
                 try:
                     Mensagens.post_discord()
-                    post_obra_Discord = Post_Discord(obra, atlas_dao.receber_obras())
+                    post_obra_Discord = PostDiscord(obra, atlas_dao.receber_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
-                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)  
+                    ConexaoDiscord.postar_anuncio_discord(post_obra_Discord, False)  
                 
                 except Exception as e:
                     Mensagens.erro_no_codigo(e)
@@ -107,7 +106,7 @@ class Controller_Postagem:
             for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
-                    post_obra_Facebook = Post_Facebook(obra, atlas_dao.receber_obras())
+                    post_obra_Facebook = PostFacebook(obra, atlas_dao.receber_obras())
                     #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 
                 except Exception as e:
@@ -129,9 +128,9 @@ class Controller_Postagem:
 
                 try:
                     Mensagens.post_discord()
-                    post_obra_Discord = Post_Discord(obra, atlas_dao.receber_obras())
+                    post_obra_Discord = PostDiscord(obra, atlas_dao.receber_obras())
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
-                    Conexao_Discord.postar_anuncio_discord(post_obra_Discord, False)
+                    ConexaoDiscord.postar_anuncio_discord(post_obra_Discord, False)
                 except:
                     Mensagens.nao_foi_possivel_postar_discord()
                     Mensagens.mensagem_nao_foi_possivel_postar_obra(obra.titulo_obra)
@@ -145,7 +144,7 @@ class Controller_Postagem:
             for obra in lista_de_obras_facebook:
                 try:
                     Mensagens.post_facebook(obra.titulo_obra)
-                    post_obra_Facebook = Post_Facebook(obra, atlas_dao.receber_obras())
+                    post_obra_Facebook = PostFacebook(obra, atlas_dao.receber_obras())
                     #Conexao_Facebook.postar_anuncio_facebook(post_obra_Facebook)
                 except:
                     Mensagens.nao_foi_possivel_postar_facebook()

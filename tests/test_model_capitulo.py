@@ -1,5 +1,5 @@
 import pytest
-from src.model.Capitulo import Capitulo
+from src.model.capitulo import Capitulo
 
 class TestModelCapitulo:
     # Teste de inicialização

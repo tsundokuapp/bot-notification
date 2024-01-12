@@ -5,11 +5,11 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
 
-from src.model.Obra import Obra
-from src.model.Capitulo import Capitulo
-from src.model.Mensagens import Mensagens
+from src.model.obra import Obra
+from src.model.capitulo import Capitulo
+from src.model.mensagens import Mensagens
 
-class Atlas_DAO:
+class AtlasDAO:
     def __init__(self):
         #Carregando as variaveis de ambiente
         load_dotenv()

@@ -1,13 +1,13 @@
 import logging
 
-from src.dao.Atlas_Dao import Atlas_DAO
-from src.model.Mensagens import Mensagens
+from src.dao.atlas_dao import AtlasDAO
+from src.model.mensagens import Mensagens
 
-class Controller_IO:
+class ControllerIO:
 
     def valida_existencia_de_anuncios_anteriores():
 
-        atlas_dao = Atlas_DAO()
+        atlas_dao = AtlasDAO()
         logger_infos = logging.getLogger('logger_infos')
         
         Mensagens.inicializando_verificacao_postagem()
