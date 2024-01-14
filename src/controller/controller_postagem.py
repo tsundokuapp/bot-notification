@@ -9,7 +9,7 @@ from src.controller.controller_io import ControllerIO
 from src.model.posts.post_discord import PostDiscord
 from src.model.posts.post_facebook import PostFacebook
 
-from model.Mensagens import Mensagens
+from model.mensagens import Mensagens
 
 class ControllerPostagem:
 
