@@ -1,6 +1,9 @@
 import logging
 import os
+import sys
 import datetime
+from datetime import tzinfo, timezone
+
 
 class LoggerConfig:
     def __init__(self):
@@ -25,15 +28,15 @@ class LoggerConfig:
 
         class CustomFormatter(logging.Formatter):
             def formatTime(self, record, datefmt=None):
-                dt = datetime.datetime.fromtimestamp(record.created, tz=datetime.timezone.utc)
-                return dt.strftime('M:%m D:%d H:%H')
+                dt = datetime.datetime.fromtimestamp(record.created, tz=timezone.utc).astimezone(timezone(datetime.timedelta(hours=-3)))
+                return dt.strftime('%m/%d/%Y %H:%M')
 
         formatter = CustomFormatter('%(asctime)s - %(levelname)s - %(message)s')
 
         file_handler = logging.FileHandler(log_file)
         file_handler.setFormatter(formatter)
 
-        console_handler = logging.StreamHandler()
+        console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setFormatter(formatter)
 
         logger.addHandler(file_handler)
