@@ -31,4 +31,7 @@ class Obra:
 
     
     def receber_lista_de_capitulos(self, lista_de_capitulos) -> None:
-        self.lista_de_capitulos = lista_de_capitulos
+        # Ordena a lista de capítulos pelo número do capítulo
+        lista_ordenada = sorted(lista_de_capitulos, key=lambda capitulo: str(capitulo.numero_capitulo), reverse=True)
+        
+        self.lista_de_capitulos.extend(lista_ordenada)
