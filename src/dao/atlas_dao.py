@@ -36,6 +36,100 @@ class AtlasDAO:
             return False
 
 
+    def receber_obras_anunciadas(self):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+        
+        lista_de_obras = []
+
+        try:
+            cursor = colecao.find({}) # Recebe todos os documentos da coleção
+
+            # Iterar sobre os documentos encontrados
+            for documento in cursor:
+                obra = Obra(
+                    titulo_obra=documento["titulo_obra"],
+                    imagem_obra=documento["imagem_obra"],
+                    url_obra=documento["url_obra"]
+                )
+                
+                lista_capitulos_bd = []
+                
+                for dicionario_capitulo in documento["lista_de_capitulos"]:
+                    capitulo = Capitulo(
+                        numero_capitulo=dicionario_capitulo["numero_capitulo"],
+                        link_capitulo=dicionario_capitulo["link_capitulo"],
+                        data_postagem=dicionario_capitulo["data_postagem"]
+                    )
+                    lista_capitulos_bd.append(capitulo)
+                    
+                obra.receber_lista_de_capitulos(lista_capitulos_bd)
+                
+                lista_de_obras.append(obra)
+            
+            self.logger_infos.info("Registros Recebidos do MongoDB!")
+            self.logger_infos.info(lista_de_obras)
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao receber registros do MongoDB: {e}")
+            lista_de_obras = []  
+        return lista_de_obras
+    
+    
+    def receber_obra_anunciada_por_titulo(self, titulo_obra):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+        
+        try:
+            # Filtra documentos com base no título
+            filtro = {"titulo_obra": titulo_obra}
+            documento = colecao.find_one(filtro)
+
+            if documento:
+                obra = Obra(
+                    titulo_obra=documento["titulo_obra"],
+                    imagem_obra=documento["imagem_obra"],
+                    url_obra=documento["url_obra"]
+                )
+
+                lista_capitulos_bd = []
+
+                for dicionario_capitulo in documento["lista_de_capitulos"]:
+                    capitulo = Capitulo(
+                        numero_capitulo=dicionario_capitulo["numero_capitulo"],
+                        link_capitulo=dicionario_capitulo["link_capitulo"],
+                        data_postagem=dicionario_capitulo["data_postagem"]
+                    )
+                    lista_capitulos_bd.append(capitulo)
+
+                obra.receber_lista_de_capitulos(lista_capitulos_bd)
+
+                self.logger_infos.info(f"Registro Recebido do MongoDB para a obra com título '{titulo_obra}'!")
+                self.logger_infos.info(obra)
+                return obra
+            else:
+                self.logger_infos.warning(f"Não foram encontrados registros para a obra com título '{titulo_obra}'.")
+                return None
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao receber registro do MongoDB por título: {e}")
+            return None
+
+
+    def inserir_obra(self, dicionario_obra):
+        db = self.client.DadosPostagem
+        colecao = db.dadosObras
+
+        # Inserir os dados na coleção
+        for chave, valor in dicionario_obra.items():
+            filtro = {'titulo': chave}
+            novo_valor = {'$set': valor}
+            
+            try:
+                colecao.update_one(filtro, novo_valor, upsert=True)
+                self.logger_infos.info(f"Inserido com sucesso na coleção 'dadosObras' se não existir.")
+            except Exception as e:
+                Mensagens.erro_no_banco_de_dados(f"Erro ao inserir dados na coleção 'dadosObras': {e}")
+                
+                
     def adicionar_obras_anunciadas(self, lista_de_obras):
         db = self.client.DadosPostagem
         colecao = db.registroObrasPostadas
@@ -62,64 +156,18 @@ class AtlasDAO:
                 # Atualizar ou inserir os dados na coleção
                 result = colecao.update_one(
                     filtro,
-                    {"$set": dicionario_obra},
+                    {
+                        "$setOnInsert": {
+                            "imagem_obra": obra.imagem_obra,
+                            "url_obra": obra.url_obra
+                        },
+                        "$push": {"lista_de_capitulos": {"$each": dicionario_obra['lista_de_capitulos'], "$position": 0}}},
                     upsert=True
                 )
 
                 self.logger_infos.info(f"Registros inseridos/atualizados no MongoDB: {result.upserted_id if result.upserted_id else result.modified_count}")
             except Exception as e:
                 Mensagens.erro_no_banco_de_dados(f"Erro ao inserir/atualizar registros no MongoDB: {e}")
-
-    
-    def receber_obras_anunciadas(self):
-        db = self.client.DadosPostagem
-        colecao = db.registroObrasPostadas
-        
-        lista_de_obras = []
-
-        try:
-            cursor = colecao.find({}) # Recebe todos os documentos da coleção
-
-            # Iterar sobre os documentos encontrados
-            for documento in cursor:
-                obra = Obra(
-                    titulo_obra=documento["titulo_obra"],
-                    imagem_obra=documento["imagem_obra"],
-                    url_obra=documento["url_obra"]
-                )
-                
-                for dicionario_capitulo in documento["lista_de_capitulos"]:
-                    capitulo = Capitulo(
-                        numero_capitulo=dicionario_capitulo["numero_capitulo"],
-                        link_capitulo=dicionario_capitulo["link_capitulo"],
-                        data_postagem=dicionario_capitulo["data_postagem"]
-                    )
-                    obra.lista_de_capitulos.append(capitulo)
-                
-                lista_de_obras.append(obra)
-            
-            self.logger_infos.info("Registros Recebidos do MongoDB!")
-            self.logger_infos.info(lista_de_obras)
-        except Exception as e:
-            Mensagens.erro_no_banco_de_dados(f"Erro ao receber registros do MongoDB: {e}")
-            lista_de_obras = []  
-        return lista_de_obras
-            
-
-    def inserir_obra(self, dicionario_obra):
-        db = self.client.DadosPostagem
-        colecao = db.dadosObras
-
-        # Inserir os dados na coleção
-        for chave, valor in dicionario_obra.items():
-            filtro = {'titulo': chave}
-            novo_valor = {'$set': valor}
-            
-            try:
-                colecao.update_one(filtro, novo_valor, upsert=True)
-                self.logger_infos.info(f"Inserido com sucesso na coleção 'dadosObras' se não existir.")
-            except Exception as e:
-                Mensagens.erro_no_banco_de_dados(f"Erro ao inserir dados na coleção 'dadosObras': {e}")
 
     
     def inserir_obra_nao_permitida_fb(self, dicionario_obra):
@@ -181,6 +229,23 @@ class AtlasDAO:
         except Exception as e:
             Mensagens.erro_no_banco_de_dados(f"Erro ao remover documentos com o título '{titulo_a_remover}': {e}")
             return f"Erro ao remover documentos com o título '{titulo_a_remover}': {e}"
+
+
+    def excluir_registros_de_obra_anunciada_por_titulo(self, obra):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+
+        try:
+            filtro = {"titulo_obra": obra.titulo_obra}
+
+            # Exclui os documentos que correspondem ao filtro
+            resultado = colecao.delete_many(filtro)
+
+            self.logger_infos.info(f"Documentos com o título '{obra.titulo_obra}' foram removidos com sucesso. Total de documentos removidos: {resultado.deleted_count}")
+            return f"Documentos com o título '{obra.titulo_obra}' foram removidos com sucesso. Total de documentos removidos: {resultado.deleted_count}"
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao remover documentos por título: {e}")
+            return f"Erro ao remover documentos por título: {e}"
 
 
     def excluir_registros_de_obras_anunciadas(self):
