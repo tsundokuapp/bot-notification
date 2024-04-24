@@ -72,7 +72,7 @@ class Mensagens:
 
     
     @staticmethod    
-    def conclusao_verificacao_postagem():
+    def conclusao_verificacao():
         time.sleep(5)
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info("*******************************************************")
