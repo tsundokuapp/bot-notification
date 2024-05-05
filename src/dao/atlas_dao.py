@@ -161,7 +161,7 @@ class AtlasDAO:
                             "imagem_obra": obra.imagem_obra,
                             "url_obra": obra.url_obra
                         },
-                        "$push": {"lista_de_capitulos": {"$each": dicionario_obra['lista_de_capitulos'], "$position": 0}}},
+                        "$addToSet": {"lista_de_capitulos": {"$each": dicionario_obra['lista_de_capitulos']}}},
                     upsert=True
                 )
 

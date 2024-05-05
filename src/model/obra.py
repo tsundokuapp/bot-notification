@@ -18,7 +18,7 @@ class Obra:
     
     
     def __str__(self):
-        return f"Titulo: {self.titulo_obra}, Link Imagem: {self.imagem_obra}, Link Obra: {self.url_obra} \n"
+        return f"Titulo: {self.titulo_obra}, Link Imagem: {self.imagem_obra}, Link Obra: {self.url_obra}, Caps: {self.lista_de_capitulos} \n"
 
 
     def __repr__(self):

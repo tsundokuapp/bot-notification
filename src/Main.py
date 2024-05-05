@@ -25,19 +25,10 @@ if __name__ == "__main__":
         DownloadImagens.fazer_download_imagens_obras()
 
         data_atual = datetime.datetime.now().date()
-        Mensagens.inicializando_validacao_arquivos_antigos()
 
         if data_anterior:
             diferenca_dias = data_atual.toordinal() - data_anterior.toordinal()
             Mensagens.mensagem_tempo_desde_exclusao(diferenca_dias)
-
-        if diferenca_dias >= 30 or diferenca_dias <= -30:
-            Mensagens.atualizando_diretorio_imagens()
-            DownloadImagens.fazer_download_imagens_obras()
-            Mensagens.mensagem_excluindo_relatorios_capitulos()
-            atlas_dao.excluir_registros_de_obras_anunciadas()
-            data_anterior = data_atual
-            gestor_TXT.atualiza_data_anterior(data_anterior)
 
         ControllerPostagem.execucao_principal()
         Mensagens.proxima_verificacao_capitulos()

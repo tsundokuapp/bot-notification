@@ -167,9 +167,35 @@ async def forcar_postagem(interaction: discord.Interaction):
     await interaction.response.send_message(f'Postagem esta sendo iniciada... acompanhe pelo canal de logs')
 
 
+#Comando para listar obras que estão no banco
+@client.tree.command()
+async def listar_registro_de_postagem(interaction: discord.Interaction):
+    """Lista todas as obras registradas no banco."""
+
+    cursor_obras = atlas_dao.receber_obras_anunciadas()  # Recebendo o cursor do MongoDB
+    colecao_obras = list(cursor_obras)  # Convertendo o cursor para uma lista de obras
+
+    max_docs_por_pagina = 10
+
+    async def get_page(page: int):
+        emb = discord.Embed(title="Registro de Anúncios", description="Obras e capitulos que foram postados.")
+        offset = (page - 1) * max_docs_por_pagina
+
+        parte_documentos = colecao_obras[offset:offset + max_docs_por_pagina]
+
+        formatted_collections = "\n".join([f"{index + 1}. {obra}" for index, obra in enumerate(parte_documentos)])
+        emb.description = formatted_collections
+
+        total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
+        emb.set_footer(text=f"Página {page} de {total_pages}")
+        
+        return emb, total_pages
+
+    await Pagination(interaction, get_page).navegate()
+
+
 #Forçar exclusão dos registros e atualizar data
 gestor_TXT = GestorTXT()
-
 @client.tree.command()
 async def excluir_registros(interaction: discord.Interaction):
     """Exclui registro das ultimas postagens e reseta a data anterior."""

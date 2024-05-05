@@ -4,7 +4,6 @@ from src.dao.web_screper_site import WebScreperSite
 from src.dao.conexao_discord import ConexaoDiscord
 from src.dao.atlas_dao import AtlasDAO
 #from src.dao.conexao_facebook import ConexaoFacebook
-from src.controller.controller_io import ControllerIO
 from src.controller.controller_obras import ControllerObras
 from src.model.posts.post_discord import PostDiscord
 from src.model.posts.post_facebook import PostFacebook
@@ -17,17 +16,22 @@ class ControllerPostagem:
         atlas_dao = AtlasDAO()
         web_screper = WebScreperSite()
 
+        Mensagens.inicializando_validacao_arquivos_antigos()
+
         #Recebe obras postadas no site e remove as que não estão registradas
         lista_de_obras = ControllerObras.remove_obras_nao_registradas(
             web_screper.recebe_capitulos_diarios(),
             atlas_dao.receber_obras()
             )
+        
+        lista_de_obras_recebida = atlas_dao.receber_obras_anunciadas()
 
-        #Verifica se existe registro de anúncios anteriores
-        lista_de_obras_atualizada = ControllerObras.valida_lista_obras(
-            lista_de_obras, 
-            ControllerIO.valida_existencia_de_anuncios_anteriores()
-            )
+        if(len(lista_de_obras_recebida) > 0):
+            #Verifica se existe registro de anúncios anteriores
+            lista_de_obras_atualizada = ControllerObras.valida_lista_obras(
+                lista_de_obras, 
+                lista_de_obras_recebida
+                )
 
         #Faz validação dos capítulos e depois envia os dados para post
         if len(lista_de_obras_atualizada) > 0:
@@ -50,6 +54,7 @@ class ControllerPostagem:
                         post_obra_Discord,
                         False
                         )
+                    
                 except Exception as e:
                     Mensagens.erro_no_codigo(e)
                     Mensagens.nao_foi_possivel_postar_discord()
