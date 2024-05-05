@@ -198,6 +198,33 @@ class AtlasDAO:
                 Mensagens.erro_no_banco_de_dados(f"Erro ao remover registros do MongoDB: {e}")
 
 
+    def remover_capitulos_de_uma_obra(self, titulo_obra, lista_de_capitulos):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+
+        try:
+            # Filtro para verificar se o documento já existe pelo titulo_obra
+            filtro = {"titulo_obra": titulo_obra}
+
+            # Remover os capitulos na coleção
+            result = colecao.update_one(
+                filtro,
+                {
+                    "$pull": {
+                        "lista_de_capitulos": {
+                            "numero_capitulo": {
+                                "$in": [capitulo.numero_capitulo for capitulo in lista_de_capitulos]
+                            }
+                        }
+                    }
+                }
+            )
+
+            self.logger_infos.info(f"Registros removidos do MongoDB: {result.modified_count}")
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao remover registros do MongoDB: {e}")
+
+
     def inserir_obra_nao_permitida_fb(self, dicionario_obra):
         db = self.client.DadosPostagem
         colecao = db.obrasNaoPermitidasFB
