@@ -11,7 +11,7 @@ class TestModelObra:
 
     def test_str_repr(self):
         obra = Obra("Jirai Nandesuka? Chihara-san", "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg", "https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/")
-        assert str(obra) == "Titulo: Jirai Nandesuka? Chihara-san, Link Imagem: https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg, Link Obra: https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/ \n"
+        assert str(obra) == "Titulo: Jirai Nandesuka? Chihara-san, Link Imagem: https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg, Link Obra: https://tsundoku.com.br/manga/jirai-nandesuka-chihara-san/, Caps: [] \n"
         assert repr(obra) == "Titulo: Jirai Nandesuka? Chihara-san"
 
 
