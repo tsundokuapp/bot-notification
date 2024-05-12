@@ -263,7 +263,7 @@ async def ping(interaction: discord.Interaction):
 @app_commands.describe(
     boolean='True para ativo ou False para desativado',
 )
-async def adicionar_obra(interaction: discord.Interaction, boolean: bool):
+async def mudar_modo_teste(interaction: discord.Interaction, boolean: bool):
     """Ative ou desative o modo de teste"""
     try:
         gestor_TXT.atualiza_mode(boolean)
@@ -275,7 +275,7 @@ async def adicionar_obra(interaction: discord.Interaction, boolean: bool):
 
 #Verificar o modo de teste
 @client.tree.command()
-async def adicionar_obra(interaction: discord.Interaction):
+async def verifica_modo_teste(interaction: discord.Interaction):
     """Verifica o estado do modo de teste"""
     try:
         await interaction.response.send_message(f'Modo de teste está: {gestor_TXT.get_mode()} ')
