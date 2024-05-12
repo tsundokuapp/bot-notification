@@ -6,7 +6,7 @@ from src.dao.atlas_dao import AtlasDAO
 #from src.dao.conexao_facebook import ConexaoFacebook
 from src.controller.controller_obras import ControllerObras
 from src.model.posts.post_discord import PostDiscord
-from src.model.posts.post_facebook import PostFacebook
+from src.classes_io.gestor_txt import GestorTXT
 
 from model.mensagens import Mensagens
 
@@ -15,6 +15,7 @@ class ControllerPostagem:
     def execucao_principal():
         atlas_dao = AtlasDAO()
         web_screper = WebScreperSite()
+        gestor_TXT = GestorTXT()
 
         Mensagens.inicializando_validacao_arquivos_antigos()
 
@@ -52,7 +53,7 @@ class ControllerPostagem:
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     ConexaoDiscord.postar_anuncio_discord(
                         post_obra_Discord,
-                        False
+                        gestor_TXT.get_mode()
                         )
                     
                 except Exception as e:

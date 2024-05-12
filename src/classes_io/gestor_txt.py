@@ -8,6 +8,7 @@ class GestorTXT:
     def __init__(self):
         self.pasta_registro_horario = os.path.join('assets/', 'registro_horario/')
         self.caminho_arquivo_data = os.path.join(self.pasta_registro_horario, 'data_anterior.txt')
+        self.caminho_test_mode = os.path.join('assets/', 'test_mode.txt')
 
         self.logger_infos = logging.getLogger('logger_infos')
         
@@ -34,4 +35,18 @@ class GestorTXT:
         with open(self.caminho_arquivo_data, 'w') as f:
             self.logger_infos.info("Data anterior atualizada.")
             f.write(str(data_anterior))
+
+
+    def get_mode(self):
+        if os.path.isfile(self.caminho_test_mode):
+            with open(self.caminho_test_mode, 'r') as f:
+                 mode = f.read().strip()
+                 self.logger_infos.info("Modo lido.")
+                 return mode.lower() == 'true'
+
     
+    def atualiza_mode(self, mode):
+        if os.path.isfile(self.caminho_test_mode):
+            with open(self.caminho_test_mode, 'w') as f:
+                self.logger_infos.info("Modo atualizado.")
+                f.write(str(mode))

@@ -16,7 +16,7 @@ class ConexaoDiscord:
         #Carregando as variaveis de ambiente
         load_dotenv()
         token = os.getenv('API_KEY')
-        canal = int(os.getenv('CANAL_TESTES'))
+        canal = int(os.getenv('CANAL_LANCAMENTOS'))
         canal_id = int(os.getenv('CANAL_TAGS'))
 
         if e_um_teste:

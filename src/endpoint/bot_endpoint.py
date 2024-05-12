@@ -258,4 +258,29 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f'Olá, Latência: {round(client.latency,3)} ms')
 
 
+#Habilitar modo de teste
+@client.tree.command()
+@app_commands.describe(
+    boolean='True para ativo ou False para desativado',
+)
+async def adicionar_obra(interaction: discord.Interaction, boolean: bool):
+    """Ative ou desative o modo de teste"""
+    try:
+        gestor_TXT.atualiza_mode(boolean)
+
+        await interaction.response.send_message(f'Modo de teste alterado para: {gestor_TXT.get_mode()} ')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
+
+
+#Verificar o modo de teste
+@client.tree.command()
+async def adicionar_obra(interaction: discord.Interaction):
+    """Verifica o estado do modo de teste"""
+    try:
+        await interaction.response.send_message(f'Modo de teste está: {gestor_TXT.get_mode()} ')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
+
+
 client.run(token)
