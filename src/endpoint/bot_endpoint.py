@@ -5,11 +5,13 @@ import datetime
 
 import discord
 from discord import app_commands
+from discord.ext import commands
 
 from dotenv import load_dotenv
 from typing import Optional
 
 from src.dao.atlas_dao import AtlasDAO
+from src.dao.gemini_dao import GeminiDAO
 from src.endpoint.pagination import Pagination
 from src.classes_io.gestor_txt import GestorTXT
 from src.model.logger_config import LoggerConfig
@@ -21,6 +23,8 @@ canal = int(os.getenv('CANAL_TESTES'))
 
 MY_GUILD = discord.Object(id=697958499589554217)
 atlas_dao = AtlasDAO()
+
+geminiDAO = GeminiDAO()
 
 logger_config = LoggerConfig()
 
@@ -282,5 +286,19 @@ async def verifica_modo_teste(interaction: discord.Interaction):
     except Exception as e:
         await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
 
+def getResposta(titulo_obra:str):
+    return geminiDAO.generate_opniao_obra(titulo_obra)
+
+
+#Habilitar modo de teste
+@client.tree.command()
+@app_commands.describe(
+    titulo='algo assunto, anime, filme, etc.',
+)
+async def opniao(interaction: discord.Interaction, titulo: str):
+    try:
+        await interaction.response.send_message(getResposta(titulo))
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
 
 client.run(token)
