@@ -55,16 +55,18 @@ async def on_ready():
     titulo='Titulo que esta no site',
     cargo_discord='Cargo discord',
     capa_obra='URL da imagem',
-    cor ='Cor em hexadecimal, ex:0xFFFFFF'
+    cor ='Cor em hexadecimal, ex:0xFFFFFF',
+    dados_adicionais_mensagem='Alguma informação extra que aparece no final da mensagem ao anúnciar os capítulos'
 )
-async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str):
+async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str, dados_adicionais_mensagem: str):
     """Adicione uma obra nova na listagem."""
     try:
         dicionario_obra = {
             titulo: {
                 "cargo_discord": cargo_discord,
                 "url_imagem": capa_obra,
-                "cor": cor
+                "cor": cor,
+                "dados_adicionais_mensagem": dados_adicionais_mensagem
             }
         }
 
@@ -75,7 +77,52 @@ async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_di
         await interaction.response.send_message(f'Erro ao adicionar {titulo}: {e}')
 
 
-#Adicionar obra no banco
+#Atualizar obra no banco
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_capa='URL da imagem',
+)
+async def atualizar_capa_obra(interaction: discord.Interaction, titulo: str, nova_capa: str):
+    """Atualize a capa de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'url_imagem', nova_capa)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_cor='Cor do embled',
+)
+async def atualizar_cor_obra(interaction: discord.Interaction, titulo: str, nova_cor: str):
+    """Atualize a capa de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'cor', nova_cor)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_mensagem='Dados adicionais que aparecem no final do anúncio do capítulo',
+)
+async def atualizar_mensagem_obra(interaction: discord.Interaction, titulo: str, nova_mensagem: str):
+    """Atualize os dados adicionais na mensagem de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'dados_adicionais_mensagem', nova_mensagem)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
 @client.tree.command()
 @app_commands.describe(
     titulo='Titulo que esta no site'

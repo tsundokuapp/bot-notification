@@ -314,3 +314,17 @@ class AtlasDAO:
         except Exception as e:
             Mensagens.erro_no_banco_de_dados(f"Erro ao remover todos os documentos: {e}")
             return f"Erro ao remover todos os documentos: {e}"
+
+
+    def atualizar_campo(self, titulo, campo, novo_valor):
+        db = self.client.DadosPostagem
+        colecao = db.dadosObras
+
+        filtro = {'titulo': titulo}
+        valor = {'$set': {campo: novo_valor}}
+
+        try:
+            colecao.update_one(filtro, valor)
+            self.logger_infos.info(f"Atualizado {campo} em 'dadosObras' para {titulo}.")
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao atualizar {campo} em 'dadosObras' para {titulo}: {e}")

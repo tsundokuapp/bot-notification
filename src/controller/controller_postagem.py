@@ -48,13 +48,13 @@ class ControllerPostagem:
                     post_obra_Discord = PostDiscord(
                         obra,
                         atlas_dao.receber_obras()
-                        )
+                    )
                     
                     Mensagens.mensagen_realizando_post_obra(post_obra_Discord.nome_no_anuncio)
                     ConexaoDiscord.postar_anuncio_discord(
                         post_obra_Discord,
                         gestor_TXT.get_mode()
-                        )
+                    )
                     
                 except Exception as e:
                     Mensagens.erro_no_codigo(e)
