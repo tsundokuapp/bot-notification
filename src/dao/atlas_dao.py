@@ -161,7 +161,7 @@ class AtlasDAO:
                             "imagem_obra": obra.imagem_obra,
                             "url_obra": obra.url_obra
                         },
-                        "$push": {"lista_de_capitulos": {"$each": dicionario_obra['lista_de_capitulos'], "$position": 0}}},
+                        "$addToSet": {"lista_de_capitulos": {"$each": dicionario_obra['lista_de_capitulos']}}},
                     upsert=True
                 )
 
@@ -169,7 +169,62 @@ class AtlasDAO:
             except Exception as e:
                 Mensagens.erro_no_banco_de_dados(f"Erro ao inserir/atualizar registros no MongoDB: {e}")
 
-    
+
+    def remover_obras_anunciadas(self, lista_de_obras):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+
+        for obra in lista_de_obras:
+            try:
+                # Filtro para verificar se o documento já existe pelo titulo_obra
+                filtro = {"titulo_obra": obra.titulo_obra}
+
+                # Remover os capitulos na coleção
+                result = colecao.update_one(
+                    filtro,
+                    {
+                        "$pull": {
+                            "lista_de_capitulos": {
+                                "numero_capitulo": {
+                                    "$in": [capitulo.numero_capitulo for capitulo in obra.lista_de_capitulos]
+                                }
+                            }
+                        }
+                    }
+                )
+
+                self.logger_infos.info(f"Registros removidos do MongoDB: {result.modified_count}")
+            except Exception as e:
+                Mensagens.erro_no_banco_de_dados(f"Erro ao remover registros do MongoDB: {e}")
+
+
+    def remover_capitulos_de_uma_obra(self, titulo_obra, lista_de_capitulos):
+        db = self.client.DadosPostagem
+        colecao = db.registroObrasPostadas
+
+        try:
+            # Filtro para verificar se o documento já existe pelo titulo_obra
+            filtro = {"titulo_obra": titulo_obra}
+
+            # Remover os capitulos na coleção
+            result = colecao.update_one(
+                filtro,
+                {
+                    "$pull": {
+                        "lista_de_capitulos": {
+                            "numero_capitulo": {
+                                "$in": [capitulo.numero_capitulo for capitulo in lista_de_capitulos]
+                            }
+                        }
+                    }
+                }
+            )
+
+            self.logger_infos.info(f"Registros removidos do MongoDB: {result.modified_count}")
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao remover registros do MongoDB: {e}")
+
+
     def inserir_obra_nao_permitida_fb(self, dicionario_obra):
         db = self.client.DadosPostagem
         colecao = db.obrasNaoPermitidasFB
@@ -259,3 +314,17 @@ class AtlasDAO:
         except Exception as e:
             Mensagens.erro_no_banco_de_dados(f"Erro ao remover todos os documentos: {e}")
             return f"Erro ao remover todos os documentos: {e}"
+
+
+    def atualizar_campo(self, titulo, campo, novo_valor):
+        db = self.client.DadosPostagem
+        colecao = db.dadosObras
+
+        filtro = {'titulo': titulo}
+        valor = {'$set': {campo: novo_valor}}
+
+        try:
+            colecao.update_one(filtro, valor)
+            self.logger_infos.info(f"Atualizado {campo} em 'dadosObras' para {titulo}.")
+        except Exception as e:
+            Mensagens.erro_no_banco_de_dados(f"Erro ao atualizar {campo} em 'dadosObras' para {titulo}: {e}")

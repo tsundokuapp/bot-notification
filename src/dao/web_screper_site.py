@@ -3,6 +3,7 @@ import logging
 import requests
 
 from datetime import datetime, timedelta
+from babel.dates import format_date
 from bs4 import BeautifulSoup
 
 from src.model.capitulo import Capitulo
@@ -10,15 +11,15 @@ from src.model.obra import Obra
 from src.model.mensagens import Mensagens
 from src.classes_io.gestor_txt import GestorTXT
 
-# Definir o locale como "pt_BR.UTF-8"
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-
 
 class WebScreperSite:
 
     def __init__(self):
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(" Iniciando Web Screper ")
+
+        # Definir o locale como "pt_BR.UTF-8"
+        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 
     def recebe_capitulos_diarios(self):
@@ -73,6 +74,8 @@ class WebScreperSite:
 
 
     def receber_datas(self):
+        logger_infos = logging.getLogger('logger_infos')
+
         gestor_TXT = GestorTXT()
         data_anterior = gestor_TXT.get_data_anterior()
 
@@ -85,11 +88,13 @@ class WebScreperSite:
         dias_permitidos = min(diferenca_dias, max_dias)
 
         datas = []
-        datas.append(data_atual.strftime("%B %-d, %Y"))  # Adiciona a data atual
+        datas.append(format_date(data_atual, "MMMM d, Y", locale='pt_BR'))  # Adiciona a data atual
 
         for i in range(1, dias_permitidos + 1):  # Começa a partir de 1 para incluir o dia atual
             data = data_atual - timedelta(days=i)
-            datas.append(data.strftime("%B %-d, %Y"))
+            datas.append(format_date(data, "MMMM d, Y", locale='pt_BR'))
+
+        logger_infos.info(datas)
 
         return datas
 

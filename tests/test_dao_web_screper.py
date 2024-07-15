@@ -9,11 +9,22 @@ class TestWebScreper:
         web_screper = WebScreperSite()
         dados_obra = web_screper.receber_conteudo(5)
 
+        [print(dado) for dado in dados_obra ]
+
         assert len(dados_obra[0]) > 0
         assert len(dados_obra[1]) > 0
         assert len(dados_obra[2]) > 0
         assert len(dados_obra[3]) > 0
         assert len(dados_obra[4]) > 0
+
+
+    def test_valida_se_esta_recebendo_capitulos_obras(self):
+        web_screper = WebScreperSite()
+        dados_obra = web_screper.recebe_capitulos_diarios()
+
+        [print(obra) for obra in dados_obra ]
+
+        assert len(dados_obra) > 0
 
 
     def test_verifica_se_data_esta_em_portugues(self):

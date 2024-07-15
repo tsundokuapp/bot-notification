@@ -5,11 +5,13 @@ import datetime
 
 import discord
 from discord import app_commands
+from discord.ext import commands
 
 from dotenv import load_dotenv
 from typing import Optional
 
 from src.dao.atlas_dao import AtlasDAO
+from src.dao.gemini_dao import GeminiDAO
 from src.endpoint.pagination import Pagination
 from src.classes_io.gestor_txt import GestorTXT
 from src.model.logger_config import LoggerConfig
@@ -21,6 +23,8 @@ canal = int(os.getenv('CANAL_TESTES'))
 
 MY_GUILD = discord.Object(id=697958499589554217)
 atlas_dao = AtlasDAO()
+
+geminiDAO = GeminiDAO()
 
 logger_config = LoggerConfig()
 
@@ -51,16 +55,18 @@ async def on_ready():
     titulo='Titulo que esta no site',
     cargo_discord='Cargo discord',
     capa_obra='URL da imagem',
-    cor ='Cor em hexadecimal, ex:0xFFFFFF'
+    cor ='Cor em hexadecimal, ex:0xFFFFFF',
+    dados_adicionais_mensagem='Alguma informação extra que aparece no final da mensagem ao anúnciar os capítulos'
 )
-async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str):
+async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str, dados_adicionais_mensagem: str):
     """Adicione uma obra nova na listagem."""
     try:
         dicionario_obra = {
             titulo: {
                 "cargo_discord": cargo_discord,
                 "url_imagem": capa_obra,
-                "cor": cor
+                "cor": cor,
+                "dados_adicionais_mensagem": dados_adicionais_mensagem
             }
         }
 
@@ -71,7 +77,52 @@ async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_di
         await interaction.response.send_message(f'Erro ao adicionar {titulo}: {e}')
 
 
-#Adicionar obra no banco
+#Atualizar obra no banco
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_capa='URL da imagem',
+)
+async def atualizar_capa_obra(interaction: discord.Interaction, titulo: str, nova_capa: str):
+    """Atualize a capa de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'url_imagem', nova_capa)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_cor='Cor do embled',
+)
+async def atualizar_cor_obra(interaction: discord.Interaction, titulo: str, nova_cor: str):
+    """Atualize a capa de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'cor', nova_cor)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
+@client.tree.command()
+@app_commands.describe(
+    titulo='Titulo que esta no site',
+    nova_mensagem='Dados adicionais que aparecem no final do anúncio do capítulo',
+)
+async def atualizar_mensagem_obra(interaction: discord.Interaction, titulo: str, nova_mensagem: str):
+    """Atualize os dados adicionais na mensagem de uma obra."""
+    try:
+        atlas_dao.atualizar_campo(titulo, 'dados_adicionais_mensagem', nova_mensagem)
+
+        await interaction.response.send_message(f'{titulo} Atualizada com sucesso!')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao atualizar {titulo}: {e}')
+
+
 @client.tree.command()
 @app_commands.describe(
     titulo='Titulo que esta no site'
@@ -167,9 +218,35 @@ async def forcar_postagem(interaction: discord.Interaction):
     await interaction.response.send_message(f'Postagem esta sendo iniciada... acompanhe pelo canal de logs')
 
 
+#Comando para listar obras que estão no banco
+@client.tree.command()
+async def listar_registro_de_postagem(interaction: discord.Interaction):
+    """Lista todas as obras registradas no banco."""
+
+    cursor_obras = atlas_dao.receber_obras_anunciadas()  # Recebendo o cursor do MongoDB
+    colecao_obras = list(cursor_obras)  # Convertendo o cursor para uma lista de obras
+
+    max_docs_por_pagina = 10
+
+    async def get_page(page: int):
+        emb = discord.Embed(title="Registro de Anúncios", description="Obras e capitulos que foram postados.")
+        offset = (page - 1) * max_docs_por_pagina
+
+        parte_documentos = colecao_obras[offset:offset + max_docs_por_pagina]
+
+        formatted_collections = "\n".join([f"{index + 1}. {obra}" for index, obra in enumerate(parte_documentos)])
+        emb.description = formatted_collections
+
+        total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
+        emb.set_footer(text=f"Página {page} de {total_pages}")
+        
+        return emb, total_pages
+
+    await Pagination(interaction, get_page).navegate()
+
+
 #Forçar exclusão dos registros e atualizar data
 gestor_TXT = GestorTXT()
-
 @client.tree.command()
 async def excluir_registros(interaction: discord.Interaction):
     """Exclui registro das ultimas postagens e reseta a data anterior."""
@@ -231,5 +308,44 @@ async def ping(interaction: discord.Interaction):
     """Verificar conectividade do bot."""
     await interaction.response.send_message(f'Olá, Latência: {round(client.latency,3)} ms')
 
+
+#Habilitar modo de teste
+@client.tree.command()
+@app_commands.describe(
+    boolean='True para ativo ou False para desativado',
+)
+async def mudar_modo_teste(interaction: discord.Interaction, boolean: bool):
+    """Ative ou desative o modo de teste"""
+    try:
+        gestor_TXT.atualiza_mode(boolean)
+
+        await interaction.response.send_message(f'Modo de teste alterado para: {gestor_TXT.get_mode()} ')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
+
+
+#Verificar o modo de teste
+@client.tree.command()
+async def verifica_modo_teste(interaction: discord.Interaction):
+    """Verifica o estado do modo de teste"""
+    try:
+        await interaction.response.send_message(f'Modo de teste está: {gestor_TXT.get_mode()} ')
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
+
+def getResposta(titulo_obra:str):
+    return geminiDAO.generate_opniao_obra(titulo_obra)
+
+
+#Habilitar modo de teste
+@client.tree.command()
+@app_commands.describe(
+    titulo='algo assunto, anime, filme, etc.',
+)
+async def opniao(interaction: discord.Interaction, titulo: str):
+    try:
+        await interaction.response.send_message(getResposta(titulo))
+    except Exception as e:
+        await interaction.response.send_message(f'Erro ao modificar o arquivo: {e}')
 
 client.run(token)
