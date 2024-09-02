@@ -42,9 +42,14 @@ class ConexaoDiscord:
             {cargo.mention} {cargo_todas_obras.mention}
             '''
 
-            embed = discord.Embed()
-            embed.colour = post_obra.cor_int
-            embed.add_field(name="", value=post_obra.retornar_mensagem_post(tags.mention))
+            embed = discord.Embed(
+                description=post_obra.retornar_mensagem_post(tags.mention), 
+                color=post_obra.cor_int
+                )
+
+            if post_obra.contem_mensagem_adicional:
+                embed.add_field(name="", value=post_obra.mensagem_adicional_post())
+
             embed.set_image(url=post_obra.imagem_obra)
 
             await channel.send(content=mensagem_cargos,embed=embed)
@@ -53,13 +58,15 @@ class ConexaoDiscord:
 
         @client.event
         async def on_error(event, *args, **kwargs):
-            logger_infos.error(f"Ocorreu um erro ao postar capitulo")
-
             atlas_dao = AtlasDAO()
             atlas_dao.remover_capitulos_de_uma_obra(post_obra.titulo_obra, post_obra.lista_de_capitulos)
+
+            _, exc_value, _ = sys.exc_info()
             
+            logger_infos.error(f'Ocorreu um erro ao postar capitulo: {exc_value}')
+
             channel = client.get_channel(int(os.getenv('CANAL_TESTES')))
-            await channel.send(f"Ocorreu um erro ao postar capitulo, verifique se o cargo esta criado no servidor, ou tente novamente. ")
+            await channel.send(f'Ocorreu um erro ao postar capitulo: {exc_value}')
 
             await client.close()
 

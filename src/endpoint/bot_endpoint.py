@@ -58,7 +58,7 @@ async def on_ready():
     cor ='Cor em hexadecimal, ex:0xFFFFFF',
     dados_adicionais_mensagem='Alguma informação extra que aparece no final da mensagem ao anúnciar os capítulos'
 )
-async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str, dados_adicionais_mensagem: str):
+async def adicionar_obra(interaction: discord.Interaction, titulo: str, cargo_discord: str, capa_obra: str, cor: str, dados_adicionais_mensagem: str = ''):
     """Adicione uma obra nova na listagem."""
     try:
         dicionario_obra = {

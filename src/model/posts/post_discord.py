@@ -11,7 +11,8 @@ class PostDiscord:
         self.url_obra = obra.url_obra
 
         self.lista_de_capitulos = obra.lista_de_capitulos
-        self.detalhes_adicionais_mensagem = ''
+        self.dados_adicionais_mensagem = ''
+        self.contem_mensagem_adicional = False
 
         obra_encontrada = None
         for obra in dados_unicos_obras:
@@ -24,9 +25,13 @@ class PostDiscord:
             self.cor_int = int(obra_encontrada['cor'], 16)
             self.imagem_obra = obra_encontrada['url_imagem']
             self.dados_adicionais_mensagem = obra_encontrada['dados_adicionais_mensagem']
+
+            if self.dados_adicionais_mensagem != '':
+                self.contem_mensagem_adicional = True
         else:
             self.logger_erros.error("Não foi possível encontrar obra nos registros.")
     
+
     def retornar_mensagem_post(self, tag_aba):
         if len(self.lista_de_capitulos) == 1:
             self.logger_infos.info("postando: " + str(self.lista_de_capitulos))
@@ -43,8 +48,6 @@ class PostDiscord:
             **[{capitulo.numero_capitulo}]({capitulo.link_capitulo})**
             
             Não esqueçam de ir na aba de {tag_aba} e assinar as suas séries favoritas pra sempre receber notificação quando elas forem lançadas. <:anotadinho:970678923052613735>
-
-            {self.dados_adicionais_mensagem}
 
             Boa leitura
             <:oi:845651532401475584>
@@ -68,8 +71,6 @@ class PostDiscord:
             **[{segundo_capitulo.numero_capitulo}]({segundo_capitulo.link_capitulo})**
 
             Não esqueçam de ir na aba de {tag_aba} e assinar as suas séries favoritas pra sempre receber notificação quando elas forem lançadas. <:anotadinho:970678923052613735>
-                        
-            {self.dados_adicionais_mensagem}
 
             Boa leitura
             <:oi:845651532401475584>
@@ -95,9 +96,7 @@ class PostDiscord:
             **[{terceiro_capitulo.numero_capitulo}]({terceiro_capitulo.link_capitulo})** 
 
             Não esqueçam de ir na aba de {tag_aba} e assinar as suas séries favoritas pra sempre receber notificação quando elas forem lançadas. <:anotadinho:970678923052613735>
-                        
-            {self.dados_adicionais_mensagem}
-
+            
             Boa leitura
             <:oi:845651532401475584>
             '''
@@ -108,7 +107,6 @@ class PostDiscord:
             primeiro_capitulo = self.lista_de_capitulos[0]
             ultimo_capitulo = self.lista_de_capitulos[-1]
     
-
             mensagem_final = f'''
             
             **[{self.titulo_obra}]({self.url_obra})**
@@ -122,11 +120,17 @@ class PostDiscord:
 
             Não esqueçam de ir na aba de {tag_aba} e assinar as suas séries favoritas pra sempre receber notificação quando elas forem lançadas. <:anotadinho:970678923052613735>
                         
-            {self.dados_adicionais_mensagem}
-
             Boa leitura
             <:oi:845651532401475584>
             '''
 
         print(mensagem_final)
         return mensagem_final
+    
+
+    def mensagem_adicional_post(self):
+        return f'''
+
+            {self.dados_adicionais_mensagem}
+
+            '''
