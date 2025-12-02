@@ -44,7 +44,7 @@ class Mensagens:
         mensagem_log = "**Recebendo Capitulos dos ultimos dias...**"
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
+
     @staticmethod
     def inicializando_validacao_arquivos_antigos():
         time.sleep(5)
@@ -57,7 +57,7 @@ class Mensagens:
 
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
+
     @staticmethod
     def inicializando_verificacao_postagem():
         time.sleep(5)
@@ -70,15 +70,15 @@ class Mensagens:
 
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
-    @staticmethod    
+
+    @staticmethod
     def conclusao_verificacao():
         time.sleep(5)
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info("*******************************************************")
         logger_infos.info("      Comparação concluída, iniciando postagem...      ")
         logger_infos.info("*******************************************************\n")
-        
+
         mensagem_log = "**Comparação concluída, iniciando postagem...**"
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
@@ -106,7 +106,7 @@ class Mensagens:
         mensagem_log = "**Fazendo anúncio no Discord...**"
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
+
     @staticmethod
     def adicionando_anuncios_no_registro():
         time.sleep(5)
@@ -173,7 +173,7 @@ class Mensagens:
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
-        
+
 
     @staticmethod
     def mensagem_tempo_desde_exclusao(diferenca_dias):
@@ -214,7 +214,7 @@ class Mensagens:
 
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
+
     @staticmethod
     def mensagem_obra_tem_n_posts(titulo_obra, quantidade):
         mensagem_log = f"{titulo_obra} tem {quantidade} capitulos postados no site. \n"
@@ -231,7 +231,7 @@ class Mensagens:
 
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
-        
+
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
@@ -242,7 +242,7 @@ class Mensagens:
 
         logger_infos = logging.getLogger('logger_infos')
         logger_infos.info(mensagem_log)
-        
+
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
 
@@ -257,7 +257,7 @@ class Mensagens:
 
         time.sleep(10)
 
-    
+
     @staticmethod
     def proxima_verificacao_capitulos():
         time.sleep(5)
@@ -283,7 +283,7 @@ class Mensagens:
 
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
 
-    
+
     #Mensagens de erros
     @staticmethod
     def erro_no_banco_de_dados(mensagem_erro_exception):
@@ -300,8 +300,57 @@ class Mensagens:
     @staticmethod
     def mensagem_nao_foi_possivel_postar_obra(titulo_obra):
         mensagem_log = f"Não foi possível fazer a postagem de {titulo_obra}, verifique se as informações dela foram cadastradas corretamente no JSON"
-        
+
         logger_erros = logging.getLogger('logger_erros')
         logger_erros.error(mensagem_log)
 
         ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
+
+    @staticmethod
+    def mensagem_erro_conexao_internet(tipo_conexao):
+        if tipo_conexao == 'https':
+            mensagem_log = "Erro de conexão HTTPS: Verifique sua conexão com a internet ou se o site está fora do ar."
+
+        if tipo_conexao == 'http':
+            mensagem_log = "Erro de conexão HTTP: Verifique sua conexão com a internet ou se o site está fora do ar."
+
+        if tipo_conexao == 'discord':
+            mensagem_log = "Erro de conexão com o Discord: Verifique sua conexão com a internet ou se o Discord está fora do ar."
+
+        if tipo_conexao == 'facebook':
+            mensagem_log = "Erro de conexão com o Facebook: Verifique sua conexão com a internet ou se o Facebook está fora do ar."
+
+        if tipo_conexao == 'database':
+            mensagem_log = "Erro de conexão com o banco de dados: Verifique sua conexão com a internet ou se o banco de dados está fora do ar."
+
+        if tipo_conexao == 'tsundoku':
+            mensagem_log = "Erro de conexão com a Tsundoku: Verifique sua conexão com a internet ou se o Tsundoku está fora do ar."
+
+        logger_errors = logging.getLogger('logger_errors')
+        logger_errors.error(mensagem_log)
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
+
+    def mensagem_nova_tentativa_conexao(tipo_conexao):
+        if tipo_conexao == 'https':
+            mensagem_log = "Tentando nova conexão HTTPS..."
+
+        if tipo_conexao == 'http':
+            mensagem_log = "Tentando nova conexão HTTP..."
+
+        if tipo_conexao == 'discord':
+            mensagem_log = "Tentando nova conexão com o Discord..."
+
+        if tipo_conexao == 'facebook':
+            mensagem_log = "Tentando nova conexão com o Facebook..."
+
+        if tipo_conexao == 'database':
+            mensagem_log = "Tentando nova conexão com o banco de dados..."
+
+        if tipo_conexao == 'tsundoku':
+            mensagem_log = "Tentando nova conexão com a Tsundoku..."
+
+        logger_infos = logging.getLogger('logger_infos')
+        logger_infos.info(mensagem_log)
+
+        ConexaoDiscord.mensagem_de_log_discord(mensagem_log)
+

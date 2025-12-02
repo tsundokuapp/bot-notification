@@ -2,6 +2,7 @@
 config.ini
 database_credentials.txt
 doc-dev.md
+.DS_Store
 
 # Arquivos de log
 *.log
@@ -13,3 +14,8 @@ node_modules/
 
 # Credenciais de Ambiente
 .env
+
+
+## cache python
+__pycache__/
+*.py[cod]

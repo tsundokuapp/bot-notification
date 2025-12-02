@@ -10,6 +10,7 @@ from src.model.capitulo import Capitulo
 from src.model.obra import Obra
 from src.model.mensagens import Mensagens
 from src.classes_io.gestor_txt import GestorTXT
+import os
 
 
 class WebScreperSite:
@@ -50,7 +51,7 @@ class WebScreperSite:
 
         return lista_de_obras
 
- 
+
     def receber_capitulos_diarios_obras(self, url_obra):
         response = requests.get(url_obra)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -99,10 +100,20 @@ class WebScreperSite:
         return datas
 
 
-    def receber_conteudo(self, numero_partir_ultimo_capitulo_postado):
-        url = 'https://tsundoku.com.br'
+    def receber_conteudo(self, numero_partir_ultimo_capitulo_postado, protocolo_https=True):
+        url = self.monta_url_site(protocolo_https)
 
-        response = requests.get(url)
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+        except Exception:
+            if protocolo_https:
+                Mensagens.mensagem_erro_conexao_internet("https")
+                Mensagens.mensagem_nova_tentativa_conexao_internet("http")
+                return self.receber_conteudo(numero_partir_ultimo_capitulo_postado, False)
+            Mensagens.mensagem_erro_conexao_internet("http")
+            return []
+
         soup = BeautifulSoup(response.text, 'html.parser')
 
         divs_bsx = soup.find_all(name='div', class_='bsx')
@@ -112,13 +123,13 @@ class WebScreperSite:
         url_obra = ultima_atualizada.select_one('.tt a')['href']
 
         url_obra = ultima_atualizada.select_one('.bsx a')['href']
-        
+
         try:
             url_ultimo_capitulo = ultima_atualizada.select_one('.chfiv a')['href']
         except:
             Mensagens.mensagem_obra_nao_tem_nenhum_capitulo(titulo_obra)
             return []
-        
+
         numero_ultimo_capitulo = ultima_atualizada.select_one('.chfiv a').text
 
         response = requests.get(url_obra)
@@ -128,3 +139,11 @@ class WebScreperSite:
         dados_ultima_obra_atualizada = [titulo_obra,numero_ultimo_capitulo,url_ultimo_capitulo,imagem_obra,url_obra]
 
         return dados_ultima_obra_atualizada
+
+    def monta_url_site(self, https=True):
+        url_site = os.getenv('URL_SITE')
+
+        if https:
+            return 'https://' + url_site
+        else:
+            return 'http://' + url_site

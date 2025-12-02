@@ -5,3 +5,5 @@ CANAL_TAGS = channel_id_tags
 
 API_ID_PAGINA_FACEBOOK = api_facebook
 API_TOKEN_PAGINA = token_facebook_page
+
+URL_SITE = url_do_site_sem_https//:
