@@ -175,7 +175,7 @@ async def listar_obras(interaction: discord.Interaction):
 
         total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
         emb.set_footer(text=f"Página {page} de {total_pages}")
-        
+
         return emb, total_pages
 
     await Pagination(interaction, get_page).navegate()
@@ -202,7 +202,7 @@ async def listar_obras_nao_permitidas_fb(interaction: discord.Interaction):
 
         total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
         emb.set_footer(text=f"Página {page} de {total_pages}")
-        
+
         return emb, total_pages
 
     await Pagination(interaction, get_page).navegate()
@@ -216,6 +216,15 @@ async def forcar_postagem(interaction: discord.Interaction):
     subprocess.Popen(["python", "src/Main.py"])
 
     await interaction.response.send_message(f'Postagem esta sendo iniciada... acompanhe pelo canal de logs')
+
+#Comando de contigencia para postagem emergencial
+@client.tree.command()
+async def postagem_emergencial(interaction: discord.Interaction):
+    """Realiza uma postagem emergencial."""
+
+    subprocess.Popen(["python", "src/Main.py"])
+
+    await interaction.response.send_message(f'Postagem emergencial realizada do servidor do Axios... acompanhe pelo canal de logs')
 
 
 #Comando para listar obras que estão no banco
@@ -239,7 +248,7 @@ async def listar_registro_de_postagem(interaction: discord.Interaction):
 
         total_pages = Pagination.compute_total_pages(len(colecao_obras), max_docs_por_pagina)
         emb.set_footer(text=f"Página {page} de {total_pages}")
-        
+
         return emb, total_pages
 
     await Pagination(interaction, get_page).navegate()
